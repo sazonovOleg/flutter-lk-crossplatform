@@ -1,7 +1,6 @@
-# b2b_client_lk
+# b2b_client_lk 
 
-Example flutter project with cubit/mvvm + hive
+## Example flutter project with cubit/mvvm + hive
 
-## Getting Started
+### Чистая архитектура + hive + bloc + mvvm.
 
-Flutter проект с чистой архитектурой и cubit and mvvm.
