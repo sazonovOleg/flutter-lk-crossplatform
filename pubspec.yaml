@@ -1,0 +1,53 @@
+name: b2b_client_lk
+description: "B2B client lk"
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=2.18.4 <3.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  #firebase
+  firebase_auth: ^4.19.6
+  firebase_core: ^2.31.1
+  #bloc
+  flutter_bloc: ^8.1.6
+  #json
+  json_serializable: ^6.8.0
+  json_annotation: ^4.9.0
+  #device info
+  platform_device_id: ^1.0.1
+  #api
+  dio: ^5.4.3+1
+  http: ^0.13.5
+  #navigation
+  go_router: ^14.1.3
+  #stream
+  rxdart: ^0.27.7
+  #ui
+  material_color_utilities: ^0.11.1
+  cupertino_icons: ^1.0.6
+  #storage
+  shared_preferences: ^2.2.3
+  hive_flutter: ^1.1.0
+  hive_generator: ^2.0.1
+  intl: ^0.17.0
+  #cache network image
+  cached_network_image: ^3.3.1
+  # provider
+  provider: ^6.1.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  build_runner: ^2.4.10
+  flutter_lints: ^4.0.0
+  dart_code_metrics: ^5.0.1
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/
+    - assets/images/
