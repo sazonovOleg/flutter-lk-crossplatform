@@ -23,19 +23,11 @@ class ShoppingCartRepository {
       items: shoppingCartResponse.items
           .map(
             (e) => ShoppingCartItem(
-              price: e.price,
               name: e.name,
-              art: e.art,
+              price: e.price,
               kod: e.kod,
-              quantity: e.quantity,
-              selected: e.selected,
               sum: e.sum,
-              groupId: e.groupId,
-              groupName: e.groupName,
               image: e.image,
-              ownerId: e.ownerId,
-              ownerName: e.ownerName,
-              warehouseId: e.warehouseId,
             ),
           )
           .toList(),
@@ -57,16 +49,10 @@ class ShoppingCartRepository {
   Future<void> changeShopingCartItemQuantity(
     String kod,
     int quantity,
-    String groupId,
-    String ownerId,
-    String warehouseId,
   ) async {
     await _scApi.changeShopingCartItemQuantity(
       kod,
       quantity,
-      groupId,
-      ownerId,
-      warehouseId,
     );
   }
 
@@ -88,10 +74,6 @@ class ShoppingCartRepository {
     final itemsStorage = await _scStorage.getShopingCart();
 
     var quantity = 0;
-    final findedItem = itemsStorage.items.where((e) => e.kod == kod).toList();
-    if (findedItem.isNotEmpty) {
-      quantity = findedItem.first.quantity;
-    }
 
     return quantity;
   }

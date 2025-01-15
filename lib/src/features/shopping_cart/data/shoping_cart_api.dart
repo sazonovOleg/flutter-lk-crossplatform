@@ -10,12 +10,9 @@ class ShoppingCartApi {
   Future<void> changeShopingCartItemQuantity(
     String kod,
     int quantity,
-    String groupId,
-    String ownerId,
-    String warehouseId,
   ) async {
     await _dio.put(
-      'shopping_cart/param?kod=$kod&quantity=$quantity&groupId=$groupId&ownerId=$ownerId&warehouseId=$warehouseId',
+      'shopping_cart/param?kod=$kod&quantity=$quantity',
     );
   }
 

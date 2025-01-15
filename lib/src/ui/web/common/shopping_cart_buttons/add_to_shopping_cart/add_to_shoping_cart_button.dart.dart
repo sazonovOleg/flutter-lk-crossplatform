@@ -7,24 +7,12 @@ import 'add_to_shoping_cart_button_vm.dart';
 
 class AddToShoppingCartButton extends StatefulWidget {
   final String kod;
-  final String groupId;
-  final String ownerId;
-  final String warehouseId;
-  final bool byArticle;
-  final String art;
-  final String brand;
   final String name;
   final String price;
 
   const AddToShoppingCartButton({
     super.key,
     required this.kod,
-    required this.groupId,
-    required this.ownerId,
-    required this.warehouseId,
-    this.byArticle = false,
-    this.art = '',
-    this.brand = '',
     this.name = '',
     this.price = '',
   });
@@ -38,9 +26,6 @@ class _AddToShoppingCartButtonState extends State<AddToShoppingCartButton> {
   void initState() {
     context.read<AddToShoppingCartButtonVm>().init(
           widget.kod,
-          widget.groupId,
-          widget.byArticle,
-          widget.warehouseId,
         );
     super.initState();
   }
@@ -67,22 +52,10 @@ class _AddToShoppingCartButtonState extends State<AddToShoppingCartButton> {
                           0xFFFF6347,
                         ),
                       ),
-                      onPressed: () => widget.byArticle
-                          ? vm.addArticlesGoodToCart(
-                              widget.kod,
-                              (vm.itemQuantity + 1).toString(),
-                              widget.ownerId,
-                              widget.art,
-                              widget.brand,
-                              widget.name,
-                              widget.price,
-                            )
-                          : vm.changeQuantity(
-                              vm.itemQuantity + 1,
-                              widget.kod,
-                              widget.groupId,
-                              widget.ownerId,
-                            ),
+                      onPressed: () => vm.changeQuantity(
+                        vm.itemQuantity + 1,
+                        widget.kod,
+                      ),
                       child: const Text(
                         style: TextStyle(color: Colors.white),
                         'В корзину',
@@ -91,11 +64,6 @@ class _AddToShoppingCartButtonState extends State<AddToShoppingCartButton> {
                   : _ChangeItemQuantityBox(
                       kod: widget.kod,
                       vm: vm,
-                      groupId: widget.groupId,
-                      ownerId: widget.ownerId,
-                      byArticle: widget.byArticle,
-                      art: widget.art,
-                      brand: widget.brand,
                       name: widget.name,
                       price: widget.price,
                     ),
@@ -107,11 +75,6 @@ class _AddToShoppingCartButtonState extends State<AddToShoppingCartButton> {
 
 class _ChangeItemQuantityBox extends StatelessWidget {
   final String kod;
-  final String groupId;
-  final String ownerId;
-  final bool byArticle;
-  final String art;
-  final String brand;
   final String name;
   final String price;
 
@@ -120,11 +83,6 @@ class _ChangeItemQuantityBox extends StatelessWidget {
   const _ChangeItemQuantityBox({
     required this.kod,
     required this.vm,
-    required this.groupId,
-    required this.ownerId,
-    required this.byArticle,
-    required this.art,
-    required this.brand,
     required this.name,
     required this.price,
   });
@@ -135,22 +93,10 @@ class _ChangeItemQuantityBox extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         _ChangeQuantityButton(
-          () => byArticle
-              ? vm.addArticlesGoodToCart(
-                  kod,
-                  (vm.itemQuantity - 1).toString(),
-                  ownerId,
-                  art,
-                  brand,
-                  name,
-                  price,
-                )
-              : vm.changeQuantity(
-                  vm.itemQuantity - 1,
-                  kod,
-                  groupId,
-                  ownerId,
-                ),
+          () => vm.changeQuantity(
+            vm.itemQuantity - 1,
+            kod,
+          ),
           const Icon(
             Icons.horizontal_rule,
             color: Colors.white,
@@ -188,25 +134,11 @@ class _ChangeItemQuantityBox extends StatelessWidget {
             onChanged: (value) => vm.changeQuantityTimer(
               int.parse(value),
               kod,
-              groupId,
-              ownerId,
             ),
-            onFieldSubmitted: (value) => byArticle
-                ? vm.addArticlesGoodToCart(
-                    kod,
-                    value,
-                    ownerId,
-                    art,
-                    brand,
-                    name,
-                    price,
-                  )
-                : vm.changeQuantity(
-                    int.parse(value),
-                    kod,
-                    groupId,
-                    ownerId,
-                  ),
+            onFieldSubmitted: (value) => vm.changeQuantity(
+              int.parse(value),
+              kod,
+            ),
             inputFormatters: [
               FilteringTextInputFormatter.digitsOnly,
               FilteringTextInputFormatter.deny(
@@ -220,8 +152,6 @@ class _ChangeItemQuantityBox extends StatelessWidget {
           () => vm.changeQuantity(
             vm.itemQuantity + 1,
             kod,
-            groupId,
-            ownerId,
           ),
           const Icon(
             Icons.add,

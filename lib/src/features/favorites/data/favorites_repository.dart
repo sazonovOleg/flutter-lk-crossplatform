@@ -28,12 +28,8 @@ class FavoritesRepository {
             (e) => FavoritesItem(
               price: e.price,
               name: e.name,
-              art: e.art,
               kod: e.kod,
               image: e.image,
-              groupName: e.groupName,
-              groupId: e.groupId,
-              ownerId: e.ownerId,
             ),
           )
           .toList(),
@@ -53,9 +49,8 @@ class FavoritesRepository {
 
   Future<void> changeFavorites(
     String kod,
-    String groupId,
   ) async {
-    await _favoritesApi.addToFavorites(kod, groupId);
+    await _favoritesApi.addToFavorites(kod);
   }
 
   Future<void> clear() async {

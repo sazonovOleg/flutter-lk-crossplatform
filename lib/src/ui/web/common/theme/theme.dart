@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:material_color_utilities/material_color_utilities.dart';
 
-import 'app_colors.dart';
-
 @immutable
 class MainTheme extends ThemeExtension<MainTheme> {
   final Color primaryColor;

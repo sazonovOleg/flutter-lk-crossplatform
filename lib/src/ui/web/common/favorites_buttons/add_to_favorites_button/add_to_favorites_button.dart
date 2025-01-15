@@ -5,12 +5,10 @@ import 'add_to_favorites_button_vm.dart';
 
 class AddToFavoritesButton extends StatefulWidget {
   final String kod;
-  final String groupId;
 
   const AddToFavoritesButton({
     Key? key,
     required this.kod,
-    required this.groupId,
   }) : super(key: key);
 
   @override
@@ -46,7 +44,7 @@ class _AddToFavoritesButtonState extends State<AddToFavoritesButton> {
                   0xFFFF6347,
                 ),
               ),
-        onPressed: () => vm.changeFavorites(widget.kod, widget.groupId),
+        onPressed: () => vm.changeFavorites(widget.kod),
       ),
     );
   }

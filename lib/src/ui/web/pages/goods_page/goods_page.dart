@@ -203,7 +203,6 @@ class _GoodsListItem extends StatelessWidget {
                     return AddToFavoritesButton(
                       key: ValueKey(item.kod),
                       kod: item.kod,
-                      groupId: item.ownerId,
                     );
                   },
                 ),
@@ -225,9 +224,6 @@ class _GoodsListItem extends StatelessWidget {
                     return AddToShoppingCartButton(
                       key: ValueKey(item.kod),
                       kod: item.kod,
-                      groupId: state.groupId,
-                      ownerId: item.ownerId,
-                      warehouseId: '',
                     );
                   },
                 ),

@@ -168,9 +168,7 @@ class _CartItem extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(item.name),
-                    Text(item.art),
                     Text(item.price.toString()),
-                    Text('Кол-во: ${item.quantity}'),
                   ],
                 ),
               ),
@@ -182,7 +180,6 @@ class _CartItem extends StatelessWidget {
                   return AddToFavoritesButton(
                     key: ValueKey(item.kod),
                     kod: item.kod,
-                    groupId: item.groupId,
                   );
                 },
               ),
@@ -195,9 +192,6 @@ class _CartItem extends StatelessWidget {
                 onPressed: () => bloc.removeItem(
                   0,
                   item.kod,
-                  item.groupId,
-                  item.ownerId,
-                  item.warehouseId,
                 ),
                 child: const Text('Удалить'),
               ),
@@ -207,11 +201,8 @@ class _CartItem extends StatelessWidget {
                 ),
                 builder: (context, _) {
                   return AddToShoppingCartButton(
-                    key: ValueKey(item.kod + item.warehouseId),
+                    key: ValueKey(item.kod),
                     kod: item.kod,
-                    groupId: item.groupId,
-                    ownerId: item.ownerId,
-                    warehouseId: item.warehouseId,
                   );
                 },
               ),

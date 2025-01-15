@@ -31,7 +31,6 @@ class CartPageCubit extends Cubit<CartPageState> {
           loading: false,
         ),
       );
-      initFooter();
     });
 
     await _userDataService.initUserData();
@@ -58,18 +57,12 @@ class CartPageCubit extends Cubit<CartPageState> {
   Future<void> removeItem(
     int quantity,
     String kod,
-    String nGroupId,
-    String ownerId,
-    String warehouseId,
   ) async {
     try {
       if (quantity <= 3) {
         await _cartService.changeItemQuantity(
           kod,
           quantity,
-          nGroupId,
-          ownerId,
-          warehouseId,
         );
       }
     } on Exception catch (e) {
@@ -80,27 +73,6 @@ class CartPageCubit extends Cubit<CartPageState> {
   Future<void> selectItem(String kod, bool selected, bool nSelectAll) async {
     await _cartService.selectItem(kod, selected, nSelectAll);
     emit(CartPageState(selectAll: nSelectAll));
-  }
-
-  void initFooter() {
-    int shopingCardSelectedItemsQuantity = 0;
-    double shopingCartItemsSum = 0;
-    if (state.scItems.isNotEmpty) {
-      for (final element in state.scItems) {
-        shopingCardSelectedItemsQuantity = shopingCardSelectedItemsQuantity + element.quantity;
-        shopingCartItemsSum = shopingCartItemsSum + (element.quantity * element.price);
-      }
-
-      shopingCartItemsSum = double.parse(shopingCartItemsSum.toStringAsFixed(2));
-
-      emit(
-        CartPageState(
-          scItems: state.scItems,
-          totalPrice: shopingCartItemsSum.toString(),
-          loading: state.loading,
-        ),
-      );
-    }
   }
 
   Future<void> createOrder() async {

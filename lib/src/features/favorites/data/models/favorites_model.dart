@@ -3,8 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'favorites_model.g.dart';
 
-FavoritesResponse favoritesFromJson(List<dynamic> data) =>
-    List<FavoritesResponse>.from(
+FavoritesResponse favoritesFromJson(List<dynamic> data) => List<FavoritesResponse>.from(
       data.map(
         (x) => _$FavoritesResponseFromJson(x as Map<String, dynamic>),
       ),
@@ -30,12 +29,8 @@ class FavoritesItemsResponse {
   FavoritesItemsResponse({
     required this.price,
     required this.name,
-    required this.art,
     required this.kod,
     required this.image,
-    required this.groupName,
-    required this.groupId,
-    required this.ownerId,
   });
 
   @HiveField(0, defaultValue: 0)
@@ -45,22 +40,11 @@ class FavoritesItemsResponse {
   @JsonKey(name: 'Наименование')
   String name;
   @HiveField(2, defaultValue: '')
-  @JsonKey(name: 'Артикул')
-  String art;
-  @HiveField(3, defaultValue: '')
   @JsonKey(name: 'Код')
   String kod;
-  @HiveField(4, defaultValue: '')
+  @HiveField(3, defaultValue: '')
   @JsonKey(name: 'Изображение')
   String image;
-  @HiveField(5, defaultValue: '')
-  @JsonKey(name: 'НаименованиеГруппыПользователя')
-  String groupName;
-  @HiveField(6, defaultValue: '')
-  @JsonKey(name: 'КодГруппыПользователя')
-  String groupId;
-  @JsonKey(name: 'КодВладельца')
-  String ownerId;
 
   factory FavoritesItemsResponse.fromJson(Map<String, dynamic> json) =>
       _$FavoritesItemsResponseFromJson(json);

@@ -9,10 +9,9 @@ class FavoritesApi {
 
   Future<void> addToFavorites(
     String kod,
-    String groupId,
   ) async {
     await _dio.put(
-      'favorites/param?kod=$kod&groupId=$groupId',
+      'favorites/param?kod=$kod',
     );
   }
 

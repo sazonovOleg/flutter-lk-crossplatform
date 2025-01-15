@@ -31,11 +31,11 @@ class AddToFavoritesButtonVm extends ChangeNotifier with ErrorHandler {
     }
   }
 
-  Future<void> changeFavorites(String kod, String groupId) async {
+  Future<void> changeFavorites(String kod,) async {
     loading = true;
     notifyListeners();
     try {
-      await _favoriteService.change(kod, groupId);
+      await _favoriteService.change(kod);
     } on Exception catch (e) {
       handleError(e);
     }

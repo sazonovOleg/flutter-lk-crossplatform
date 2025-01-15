@@ -32,47 +32,22 @@ class ShopingCartResponse {
 @JsonSerializable()
 class ShopingCartItemResponse {
   ShopingCartItemResponse({
-    required this.price,
     required this.name,
-    required this.art,
+    required this.price,
     required this.kod,
-    required this.quantity,
-    required this.selected,
     required this.sum,
     required this.image,
-    required this.groupName,
-    required this.groupId,
-    required this.ownerId,
-    required this.ownerName,
-    required this.warehouseId,
   });
-
-  @JsonKey(name: 'Цена')
-  double price;
   @JsonKey(name: 'Наименование')
   String name;
-  @JsonKey(name: 'Артикул')
-  String art;
+  @JsonKey(name: 'Цена')
+  double price;
   @JsonKey(name: 'Код')
   String kod;
-  @JsonKey(name: 'Количество')
-  int quantity;
-  @JsonKey(name: 'Выбран')
-  bool selected;
   @JsonKey(name: 'Сумма')
   num sum;
   @JsonKey(name: 'Изображение')
   String image;
-  @JsonKey(name: 'НаименованиеГруппыПользователя')
-  String groupName;
-  @JsonKey(name: 'КодГруппыПользователя')
-  String groupId;
-  @JsonKey(name: 'ВладелецТовараКод')
-  String ownerId;
-  @JsonKey(name: 'ВладелецТовараНаименование')
-  String ownerName;
-  @JsonKey(name: 'КодСклада')
-  String warehouseId;
 
   factory ShopingCartItemResponse.fromJson(Map<String, dynamic> json) =>
       _$ShopingCartItemResponseFromJson(json);

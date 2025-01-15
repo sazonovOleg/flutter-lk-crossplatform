@@ -34,10 +34,9 @@ class FavoritesService {
     return favorites.items.where((e) => e.kod == kod).isNotEmpty;
   }
 
-  Future<void> change(String kod, String groupId) async {
+  Future<void> change(String kod) async {
     await _favoritesRepository.changeFavorites(
       kod,
-      groupId,
     );
     await init();
   }

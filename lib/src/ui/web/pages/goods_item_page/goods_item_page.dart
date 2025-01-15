@@ -115,7 +115,6 @@ class _Body extends StatelessWidget {
                       return AddToFavoritesButton(
                         key: ValueKey(state.goodId),
                         kod: state.goodId,
-                        groupId: state.groupId,
                       );
                     },
                   ),
@@ -176,9 +175,6 @@ class _AddToCartBtn extends StatelessWidget {
                   return AddToShoppingCartButton(
                     key: ValueKey(state.goodId),
                     kod: state.goodId,
-                    groupId: state.groupId,
-                    ownerId: state.goodCardData!.ownerId,
-                    warehouseId: '',
                   );
                 },
               ),

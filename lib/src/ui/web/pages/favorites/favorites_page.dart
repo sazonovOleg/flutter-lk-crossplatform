@@ -158,7 +158,6 @@ class _FavoriteItem extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(item.name),
-                    Text(item.art),
                     Text(item.price.toString()),
                   ],
                 ),
@@ -171,7 +170,6 @@ class _FavoriteItem extends StatelessWidget {
                   return AddToFavoritesButton(
                     key: ValueKey(item.kod),
                     kod: item.kod,
-                    groupId: item.groupId,
                   );
                 },
               ),
@@ -187,9 +185,6 @@ class _FavoriteItem extends StatelessWidget {
                 builder: (context, _) => AddToShoppingCartButton(
                   key: ValueKey(item.kod),
                   kod: item.kod,
-                  groupId: item.groupId,
-                  ownerId: item.ownerId,
-                  warehouseId: item.warehouseId,
                 ),
               ),
             ],

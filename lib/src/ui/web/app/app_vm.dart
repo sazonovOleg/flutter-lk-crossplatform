@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:b2b_client_lk/src/features/common/shared_pref/shared_pref.dart';
 import 'package:b2b_client_lk/src/ui/web/common/responsive/device_sizes.dart';
 import 'package:b2b_client_lk/src/ui/web/common/theme/theme.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class AppVM extends ChangeNotifier {
@@ -19,6 +20,7 @@ class AppVM extends ChangeNotifier {
 
   Future<void> init() async {
     await _sharedPref.init();
+    initTheme();
   }
 
   void initTheme() {
@@ -29,6 +31,10 @@ class AppVM extends ChangeNotifier {
   }
 
   ThemeData? setTheme(BuildContext context) {
-    return DeviceSizes.isMobileSize(context) ? _mobileThemeData : _tabletThemeData;
+    if (kIsWeb) {
+      return DeviceSizes.isMobileSize(context) ? _mobileThemeData : _tabletThemeData;
+    } else {
+      return _mobileThemeData;
+    }
   }
 }

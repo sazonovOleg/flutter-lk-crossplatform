@@ -24,12 +24,7 @@ class AddToShoppingCartButtonVm extends ChangeNotifier with ErrorHandler {
 
   Future<void> init(
     String kod,
-    String nGroupId,
-    bool nByArticle,
-    String nWarehouseId,
   ) async {
-    byArticle = nByArticle;
-    warehouseId = nWarehouseId;
     streamSubscription = _scService.shopingCart.listen((_) {
       try {
         _initQuantity(kod);
@@ -48,8 +43,6 @@ class AddToShoppingCartButtonVm extends ChangeNotifier with ErrorHandler {
   Future<void> changeQuantity(
     int quantity,
     String kod,
-    String groupId,
-    String ownerId,
   ) async {
     try {
       loading = true;
@@ -58,9 +51,6 @@ class AddToShoppingCartButtonVm extends ChangeNotifier with ErrorHandler {
         await _scService.changeItemQuantity(
           kod,
           quantity,
-          groupId,
-          ownerId,
-          warehouseId,
         );
       }
     } on Exception catch (e) {
@@ -71,8 +61,6 @@ class AddToShoppingCartButtonVm extends ChangeNotifier with ErrorHandler {
   Future<void> changeQuantityTimer(
     int quantity,
     String kod,
-    String groupId,
-    String ownerId,
   ) async {
     try {
       if (itemQuantity != quantity) {
@@ -86,9 +74,6 @@ class AddToShoppingCartButtonVm extends ChangeNotifier with ErrorHandler {
                 await _scService.changeItemQuantity(
                   kod,
                   quantity,
-                  groupId,
-                  ownerId,
-                  warehouseId,
                 );
               }
             }

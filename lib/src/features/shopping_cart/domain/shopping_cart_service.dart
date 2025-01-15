@@ -45,12 +45,6 @@ class ShoppingCartService {
     var quantity = 0;
     final sc = await _scRepository.getShopingCart();
 
-    final findedItems = sc.items.where(
-      (e) => e.kod == kod && e.groupId == groupId && e.warehouseId == warehouseId,
-    );
-    if (findedItems.isNotEmpty) {
-      quantity = findedItems.first.quantity;
-    }
 
     return quantity;
   }
@@ -58,16 +52,10 @@ class ShoppingCartService {
   Future<void> changeItemQuantity(
     String kod,
     int quantity,
-    String groupId,
-    String ownerId,
-    String warehouseId,
   ) async {
     await _scRepository.changeShopingCartItemQuantity(
       kod,
       quantity,
-      groupId,
-      ownerId,
-      warehouseId,
     );
     await saveShoppingCart();
     await setShoppingCart();

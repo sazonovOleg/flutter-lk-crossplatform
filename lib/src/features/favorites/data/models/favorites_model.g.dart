@@ -26,12 +26,8 @@ FavoritesItemsResponse _$FavoritesItemsResponseFromJson(
     FavoritesItemsResponse(
       price: (json['Цена'] as num).toDouble(),
       name: json['Наименование'] as String,
-      art: json['Артикул'] as String,
       kod: json['Код'] as String,
       image: json['Изображение'] as String,
-      groupName: json['НаименованиеГруппыПользователя'] as String,
-      groupId: json['КодГруппыПользователя'] as String,
-      ownerId: json['КодВладельца'] as String,
     );
 
 Map<String, dynamic> _$FavoritesItemsResponseToJson(
@@ -39,10 +35,6 @@ Map<String, dynamic> _$FavoritesItemsResponseToJson(
     <String, dynamic>{
       'Цена': instance.price,
       'Наименование': instance.name,
-      'Артикул': instance.art,
       'Код': instance.kod,
       'Изображение': instance.image,
-      'НаименованиеГруппыПользователя': instance.groupName,
-      'КодГруппыПользователя': instance.groupId,
-      'КодВладельца': instance.ownerId,
     };

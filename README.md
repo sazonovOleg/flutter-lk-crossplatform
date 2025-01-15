@@ -2,5 +2,5 @@
 
 ## Example flutter project with cubit/mvvm + hive
 
-### Чистая архитектура + hive + bloc + mvvm.
+### Чистая архитектура + hive + bloc/cubit + mvvm.
 
