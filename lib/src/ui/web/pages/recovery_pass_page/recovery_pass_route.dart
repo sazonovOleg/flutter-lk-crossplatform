@@ -10,13 +10,13 @@ class RecoveryPassRoute extends GoRoute {
 
   RecoveryPassRoute()
       : super(
-    path: route,
-    name: pageName,
-    builder: (context, state) => BlocProvider(
-      create: (context) => RecoveryPassCubit(
-        context.read<AuthService>(),
-      ),
-      child: const RecoveryPassPage(),
-    ),
-  );
+          path: route,
+          name: pageName,
+          builder: (context, state) => BlocProvider(
+            create: (context) => RecoveryPassCubit(
+              context.read<AuthService>(),
+            ),
+            child: const RecoveryPassPage(),
+          ),
+        );
 }

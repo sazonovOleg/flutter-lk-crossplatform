@@ -189,7 +189,10 @@ class _GoodsListItem extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(width:30,height: 30,),
+                const SizedBox(
+                  width: 30,
+                  height: 30,
+                ),
                 Img(
                   imageUrl: item.image,
                   height: 100,
@@ -215,7 +218,9 @@ class _GoodsListItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text('Наличие: ${item.remnant}'),
-                const SizedBox(height: 15,),
+                const SizedBox(
+                  height: 15,
+                ),
                 ChangeNotifierProvider(
                   create: (context) => AddToShoppingCartButtonVm(
                     context.read<ShoppingCartService>(),

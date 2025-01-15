@@ -10,16 +10,16 @@ class GoodsPageRoute extends GoRoute {
 
   GoodsPageRoute()
       : super(
-    path: route,
-    name: pageName,
-    builder: (context, state) => BlocProvider(
-      create: (context) => GoodsPageCubit(
-        context.read<CatalogService>(),
-      ),
-      child: GoodsPage(
-        categoryId: state.pathParameters['categoryId'] ?? '',
-        searchText: '',
-      ),
-    ),
-  );
+          path: route,
+          name: pageName,
+          builder: (context, state) => BlocProvider(
+            create: (context) => GoodsPageCubit(
+              context.read<CatalogService>(),
+            ),
+            child: GoodsPage(
+              categoryId: state.pathParameters['categoryId'] ?? '',
+              searchText: '',
+            ),
+          ),
+        );
 }

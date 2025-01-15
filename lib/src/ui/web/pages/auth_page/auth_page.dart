@@ -85,9 +85,9 @@ class _Body extends StatelessWidget {
                     state: state,
                   ),
                 ),
-              // _ForgotPassBtn(
-              //   bloc: bloc,
-              // ),
+              _ForgotPassBtn(
+                bloc: bloc,
+              ),
             ],
           );
         },

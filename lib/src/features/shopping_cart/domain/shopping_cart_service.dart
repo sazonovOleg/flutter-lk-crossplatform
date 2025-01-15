@@ -45,7 +45,6 @@ class ShoppingCartService {
     var quantity = 0;
     final sc = await _scRepository.getShopingCart();
 
-
     return quantity;
   }
 

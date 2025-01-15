@@ -4,6 +4,7 @@ import 'models/user_data_response_model.dart';
 
 class UserDataApi {
   final Dio _dio;
+
   UserDataApi(this._dio);
 
   Future<UserDataResponse> getUserData() async {

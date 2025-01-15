@@ -12,15 +12,15 @@ class MainPageRoute extends GoRoute {
 
   MainPageRoute()
       : super(
-    path: route,
-    name: pageName,
-    builder: (context, state) => BlocProvider(
-      create: (context) => MainPageCubit(
-        context.read<AuthService>(),
-        context.read<UserDataService>(),
-        context.read<ShoppingCartService>(),
-      ),
-      child: const MainPage(),
-    ),
-  );
+          path: route,
+          name: pageName,
+          builder: (context, state) => BlocProvider(
+            create: (context) => MainPageCubit(
+              context.read<AuthService>(),
+              context.read<UserDataService>(),
+              context.read<ShoppingCartService>(),
+            ),
+            child: const MainPage(),
+          ),
+        );
 }

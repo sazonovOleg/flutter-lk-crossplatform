@@ -39,10 +39,12 @@ class _State extends State<FavoritesPage> {
         appBar: _AppBar(
           bloc: bloc,
         ),
-        body: state.isLoading ? const LoadingPage() : _Body(
-          bloc: bloc,
-          state: state,
-        ),
+        body: state.isLoading
+            ? const LoadingPage()
+            : _Body(
+                bloc: bloc,
+                state: state,
+              ),
       ),
     );
   }

@@ -12,9 +12,9 @@ class ProfilePageCubit extends Cubit<ProfilePageState> {
   final UserDataService _userDataService;
 
   ProfilePageCubit(
-      this._authService,
-      this._userDataService,
-      ) : super(ProfilePageState(userData: UserData.empty()));
+    this._authService,
+    this._userDataService,
+  ) : super(ProfilePageState(userData: UserData.empty()));
 
   Future<void> init() async {
     await initUserData();

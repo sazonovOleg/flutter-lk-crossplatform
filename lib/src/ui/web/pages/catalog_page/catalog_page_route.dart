@@ -10,13 +10,13 @@ class CatalogPageRoute extends GoRoute {
 
   CatalogPageRoute()
       : super(
-    path: route,
-    name: pageName,
-    builder: (context, state) => BlocProvider(
-      create: (context) => CatalogPageCubit(
-        context.read<CatalogService>(),
-      ),
-      child: const CatalogPage(),
-    ),
-  );
+          path: route,
+          name: pageName,
+          builder: (context, state) => BlocProvider(
+            create: (context) => CatalogPageCubit(
+              context.read<CatalogService>(),
+            ),
+            child: const CatalogPage(),
+          ),
+        );
 }

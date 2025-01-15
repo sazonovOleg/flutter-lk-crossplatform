@@ -11,14 +11,14 @@ class CartPageRoute extends GoRoute {
 
   CartPageRoute()
       : super(
-    path: route,
-    name: pageName,
-    builder: (context, state) => BlocProvider(
-      create: (context) => CartPageCubit(
-        context.read<ShoppingCartService>(),
-        context.read<UserDataService>(),
-      ),
-      child: const CartPage(),
-    ),
-  );
+          path: route,
+          name: pageName,
+          builder: (context, state) => BlocProvider(
+            create: (context) => CartPageCubit(
+              context.read<ShoppingCartService>(),
+              context.read<UserDataService>(),
+            ),
+            child: const CartPage(),
+          ),
+        );
 }

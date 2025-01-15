@@ -23,7 +23,6 @@ Future<void> main() async {
         create: (context) => AppVM(
           context.read<MainTheme>(),
           context.read<SharedPref>(),
-
         ),
         builder: (context, _) {
           return const App();

@@ -10,13 +10,13 @@ class FavoritesPageRoute extends GoRoute {
 
   FavoritesPageRoute()
       : super(
-    path: route,
-    name: pageName,
-    builder: (context, state) => BlocProvider(
-      create: (context) => FavoritesPageCubit(
-        context.read<FavoritesService>(),
-      ),
-      child: const FavoritesPage(),
-    ),
-  );
+          path: route,
+          name: pageName,
+          builder: (context, state) => BlocProvider(
+            create: (context) => FavoritesPageCubit(
+              context.read<FavoritesService>(),
+            ),
+            child: const FavoritesPage(),
+          ),
+        );
 }
