@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:platform_device_id/platform_device_id.dart';
+//import 'package:platform_device_id/platform_device_id.dart';
 
 class DeviceInfo {
   String? token;
@@ -16,7 +16,7 @@ class DeviceInfo {
     String? deviceId = '';
     final platform = defaultTargetPlatform.toString();
 
-    deviceId = kIsWeb ? 'web' : await PlatformDeviceId.getDeviceId;
+    //deviceId = kIsWeb ? 'web' : await PlatformDeviceId.getDeviceId;
 
     return DeviceInfo(token: token, deviceId: deviceId, platform: platform);
   }

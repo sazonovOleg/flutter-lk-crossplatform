@@ -4,7 +4,7 @@ publish_to: 'none'
 version: 1.0.0+1
 
 environment:
-  sdk: '>=2.18.4 <3.0.0'
+  sdk: '>=3.5.2 <4.0.0'
 
 dependencies:
   flutter:
@@ -18,7 +18,7 @@ dependencies:
   json_serializable: ^6.8.0
   json_annotation: ^4.9.0
   #device info
-  platform_device_id: ^1.0.1
+  device_info_plus: ^10.1.2
   #api
   dio: ^5.4.3+1
   http: ^0.13.5

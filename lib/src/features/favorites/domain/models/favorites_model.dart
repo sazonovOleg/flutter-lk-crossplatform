@@ -1,4 +1,4 @@
-import 'package:b2b_client_lk/src/ui/web/common/formats.dart';
+import 'package:b2b_client_lk/src/ui/common/formats.dart';
 import 'package:hive_flutter/adapters.dart';
 
 part 'favorites_model.g.dart';
