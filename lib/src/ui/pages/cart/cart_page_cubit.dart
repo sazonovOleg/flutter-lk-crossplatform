@@ -66,7 +66,7 @@ class CartPageCubit extends Cubit<CartPageState> {
         );
       }
     } on Exception catch (e) {
-      debugPrint('devv debug = $e');
+      print('ERROR -------- Cart page cubit remove item ${e}');
     }
   }
 

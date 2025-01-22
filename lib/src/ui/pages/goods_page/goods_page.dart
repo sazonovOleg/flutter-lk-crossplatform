@@ -39,6 +39,12 @@ class _State extends State<GoodsPage> {
                 bloc: bloc,
                 state: state,
               ),
+        bottomSheet: state.goodsList.isEmpty && !state.isLoading
+            ? _UpdateProfileBtn(
+                bloc: bloc,
+                state: state,
+              )
+            : null,
       ),
     );
   }
@@ -180,6 +186,44 @@ class _GoodsListItem extends StatelessWidget {
             Text('Цена: ${item.price}₽'),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class _UpdateProfileBtn extends StatelessWidget {
+  final GoodsPageCubit bloc;
+  final GoodsPageState state;
+
+  const _UpdateProfileBtn({
+    required this.bloc,
+    required this.state,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height;
+
+    return Container(
+      padding: EdgeInsets.only(top: height / 3.5),
+      child: Column(
+        children: [
+          Text(state.emptyGoodsListMessage),
+          Container(
+            width: double.infinity,
+            padding: EdgeInsets.only(left: 20, right: 20, top: 55),
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Theme.of(context).primaryColor,
+              ),
+              onPressed: () => bloc.updateGoodsList(),
+              child: const Text(
+                'Обновить товары',
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

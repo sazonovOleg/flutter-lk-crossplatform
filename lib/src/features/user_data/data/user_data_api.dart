@@ -1,29 +1,25 @@
 import 'package:dio/dio.dart';
 
-import 'models/user_data_response_model.dart';
-
 class UserDataApi {
   final Dio _dio;
 
   UserDataApi(this._dio);
 
-  Future<UserDataResponse> getUserData() async {
-    final response = await _dio.get(
-      'user_data/param?',
-    );
+  Future<Response?> getUserData() async {
+    try {
+      final res = await _dio.get('api/user/');
 
-    return userDataFromJson(response.data).first;
-  }
+      return res;
+    } on DioException catch (e, s) {
+      print('DioException error ===== ${e.error}');
+      print('DioException stackTrace ===== ${s}');
+      print('DioException data ===== ${e.response?.data}');
 
-  Future<void> saveAddress(
-    String country,
-    String city,
-    String street,
-    String house,
-    String apartment,
-  ) async {
-    await _dio.put(
-      'user_data/param?&country=$country&street=$street&house=$house&apartment=$apartment&city=$city',
-    );
+      return e.response;
+    } on Exception catch (e) {
+      print('Error ===== ${e}');
+
+      return null;
+    }
   }
 }

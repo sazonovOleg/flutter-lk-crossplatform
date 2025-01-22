@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPref {
@@ -21,7 +22,7 @@ class SharedPref {
      await sharedPref.setBool(key, value);
   }
 
-  Future<bool?> getBool(String key) async {
+  bool? getBool(String key) {
     return sharedPref.getBool(key);
   }
 

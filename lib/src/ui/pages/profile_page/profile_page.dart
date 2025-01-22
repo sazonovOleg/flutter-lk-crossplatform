@@ -29,10 +29,20 @@ class _State extends State<ProfilePage> {
         appBar: _AppBar(
           bloc: bloc,
         ),
-        body: _Body(
-          bloc: bloc,
-          state: state,
-        ),
+        body: state.userData!.name.isNotEmpty
+            ? _Body(
+                bloc: bloc,
+                state: state,
+              )
+            : null,
+        bottomSheet: state.userData!.name.isNotEmpty
+            ? _LogoutBtn(
+                bloc: bloc,
+              )
+            : _UpdateProfileBtn(
+                bloc: bloc,
+                state: state,
+              ),
       ),
     );
   }
@@ -52,7 +62,7 @@ class _AppBar extends StatelessWidget implements PreferredSizeWidget {
       leading: BackButton(
         onPressed: () => bloc.onBackPressed(context),
       ),
-      title: const Text('Ваш профиль'),
+      title: const Text('Профиль'),
     );
   }
 
@@ -71,31 +81,87 @@ class _Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.symmetric(horizontal: 10),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 10),
-            child: Text('Имя: ${state.userData.name}'),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 10),
-            child: Text('Имя: ${state.userData.token}'),
-          ),
-          const SizedBox(height: 10),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(
-                0xFFFF6347,
-              ),
+    return SingleChildScrollView(
+      controller: ScrollController(),
+      child: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(bottom: 10),
+              child: Text('Имя: ${state.userData!.name}'),
             ),
-            onPressed: () => bloc.logout(context),
-            child: const Text(
-              'Выйти',
-              style: TextStyle(color: Colors.white),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 10),
+              child: Text('Имя: ${state.userData!.token}'),
+            ),
+            const SizedBox(height: 10),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _LogoutBtn extends StatelessWidget {
+  final ProfilePageCubit bloc;
+
+  const _LogoutBtn({
+    required this.bloc,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: Alignment.bottomCenter,
+      child: Container(
+        width: double.infinity,
+        padding: EdgeInsets.all(20),
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Theme.of(context).primaryColor,
+          ),
+          onPressed: () => bloc.logout(context),
+          child: const Text(
+            'Выйти',
+            style: TextStyle(color: Colors.white),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _UpdateProfileBtn extends StatelessWidget {
+  final ProfilePageCubit bloc;
+  final ProfilePageState state;
+
+  const _UpdateProfileBtn({
+    required this.bloc,
+    required this.state,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: Alignment.center,
+      child: Column(
+        children: [
+          Text(state.errorMessage),
+          Container(
+            width: double.infinity,
+            padding: EdgeInsets.all(20),
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Theme.of(context).primaryColor,
+              ),
+              onPressed: bloc.updateUserData,
+              child: const Text(
+                'Обновить данные профиля',
+                style: TextStyle(color: Colors.white),
+              ),
             ),
           ),
         ],

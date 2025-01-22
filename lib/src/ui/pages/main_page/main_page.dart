@@ -23,8 +23,8 @@ class MainPage extends StatefulWidget {
 class _State extends State<MainPage> {
   @override
   void initState() {
-    super.initState();
     context.read<MainPageCubit>().init();
+    super.initState();
   }
 
   @override

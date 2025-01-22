@@ -25,6 +25,8 @@ class AuthRepository {
         message: res.data['message'] ?? '',
       );
     } else {
+      print('ERROR ------- Repository data error. Status code ===== ${res?.statusCode}');
+
       return AuthModel.empty();
     }
   }

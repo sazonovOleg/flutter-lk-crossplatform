@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
+
 import 'models/good_card_model/good_card_data_model.dart';
 import 'models/goods_list_model/goods_list_item_model.dart';
 
@@ -8,12 +8,22 @@ class CatalogApi {
 
   CatalogApi(this._dio);
 
-  Future<List<GoodsListItemResponse>> getGoodsList() async {
-    final response = await _dio.get('api/goods/');
+  Future<Response?> getGoodsList() async {
+    try {
+      final res = await _dio.get('api/goods/');
 
-    debugPrint('devv data = ${response.data['goods']}');
+      return res;
+    } on DioException catch (e, s) {
+      print('DioException error ===== ${e.error}');
+      print('DioException stackTrace ===== ${s}');
+      print('DioException data ===== ${e.response?.data}');
 
-    return goodsListFromJson(response.data['goods']);
+      return e.response;
+    } on Exception catch (e) {
+      print('Error ===== ${e}');
+
+      return null;
+    }
   }
 
   Future<GoodCardDataResponse> getGoodCardData(
@@ -25,19 +35,5 @@ class CatalogApi {
     );
 
     return goodCardDataFromJson(response.data).first;
-  }
-
-  Future<List<String>> getSearchHistory() async {
-    final response = await _dio.get('catalog/param?searchHistory');
-    var searchResults = <String>[];
-    if (response.data.isNotEmpty) {
-      searchResults = response.data.cast<String>();
-    }
-
-    return searchResults;
-  }
-
-  Future<void> saveSearchInHistory(String searchText) async {
-    await _dio.put('catalog/param?searchText=$searchText');
   }
 }

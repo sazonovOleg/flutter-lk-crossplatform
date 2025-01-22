@@ -2,12 +2,12 @@ import 'package:b2b_client_lk/src/features/catalog/domain/models/goods_model/goo
 
 class GoodsPageState {
   final bool isLoading;
-  List<GoodsListItem> goodsList;
-  final String sortName;
+  final List<GoodsListItem> goodsList;
+  final String emptyGoodsListMessage;
 
   GoodsPageState({
     this.isLoading = true,
     this.goodsList = const [],
-    this.sortName = 'По наименованию',
+    this.emptyGoodsListMessage = 'Список товаров пуст'
   });
 }

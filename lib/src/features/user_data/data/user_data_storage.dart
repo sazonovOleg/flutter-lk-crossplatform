@@ -15,11 +15,7 @@ class UserDataStorage {
   );
 
   Future<UserDataResponse> getUserData() async {
-    final value = await _hiveStorage.getValue(_userData) ??
-        UserDataResponse(
-          name: '',
-          token: '',
-        );
+    final value = await _hiveStorage.getValue(_userData) ?? UserDataResponse(name: '', token: '');
 
     return value;
   }
@@ -48,12 +44,17 @@ class UserDataStorage {
     return pass ?? '';
   }
 
-
   Future<void> setLoggedIn(bool value) async {
     await _sharedPref.setBool('login_user', value);
   }
 
-  Future<bool?> isLoggedIn() {
-    return _sharedPref.getBool('login_user');
+  bool isLoggedIn() {
+    final isLoggedIn = _sharedPref.getBool('login_user');
+
+    if (isLoggedIn != null) {
+      return isLoggedIn;
+    } else {
+      return false;
+    }
   }
 }

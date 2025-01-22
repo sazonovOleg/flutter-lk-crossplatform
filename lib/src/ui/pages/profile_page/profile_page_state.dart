@@ -2,10 +2,12 @@ import 'package:b2b_client_lk/src/features/user_data/domain/models/user_data_mod
 
 class ProfilePageState {
   final bool isLoading;
-  final UserData userData;
+  UserData? userData = UserData.empty();
+  final String errorMessage;
 
   ProfilePageState({
     this.isLoading = false,
-    required this.userData,
+    this.userData,
+    this.errorMessage = 'Ошибка при обработке данных'
   });
 }

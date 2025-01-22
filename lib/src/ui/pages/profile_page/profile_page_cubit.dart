@@ -14,15 +14,17 @@ class ProfilePageCubit extends Cubit<ProfilePageState> {
   ProfilePageCubit(
     this._authService,
     this._userDataService,
-  ) : super(ProfilePageState(userData: UserData.empty()));
+  ) : super(ProfilePageState());
 
   Future<void> init() async {
+    emit(ProfilePageState(userData: UserData.empty(), isLoading: true));
     await initUserData();
   }
 
   Future<void> initUserData() async {
     final userData = await _userDataService.getUserData();
-    emit(ProfilePageState(userData: userData));
+
+    emit(ProfilePageState(userData: userData, isLoading: false));
   }
 
   Future<void> onBackPressed(BuildContext context) async {
@@ -33,5 +35,11 @@ class ProfilePageCubit extends Cubit<ProfilePageState> {
     await _authService.logoOut();
 
     if (context.mounted) context.pop();
+  }
+
+  Future<void> updateUserData() async {
+    emit(ProfilePageState(userData: UserData.empty(), isLoading: true));
+
+    await initUserData();
   }
 }

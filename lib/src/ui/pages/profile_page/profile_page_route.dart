@@ -13,12 +13,14 @@ class ProfilePageRoute extends GoRoute {
       : super(
           path: route,
           name: pageName,
-          builder: (context, state) => BlocProvider(
-            create: (context) => ProfilePageCubit(
-              context.read<AuthService>(),
-              context.read<UserDataService>(),
+          pageBuilder: (context, state) => NoTransitionPage(
+            child: BlocProvider(
+              create: (context) => ProfilePageCubit(
+                context.read<AuthService>(),
+                context.read<UserDataService>(),
+              ),
+              child: const ProfilePage(),
             ),
-            child: const ProfilePage(),
           ),
         );
 }

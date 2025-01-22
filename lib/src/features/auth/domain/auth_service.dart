@@ -45,7 +45,7 @@ class AuthService {
     }
   }
 
-  Future<bool> userLoggedIn() async {
+  bool userLoggedIn() {
     return _userDataService.isLoggedIn();
   }
 

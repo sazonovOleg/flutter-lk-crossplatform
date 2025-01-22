@@ -37,17 +37,15 @@ class AuthPageCubit extends Cubit<AuthPageState> with ErrorHandler {
     if (isShowLoginBtn()) {
       emit(AuthPageState(isLoading: true));
       try {
-        await _authService.signInWithEmailAndPassword(
-          email,
-          password,
-        );
-
         final authModel = await _authService.signInWithEmailAndPassword(
           email,
           password,
         );
 
-        emit(AuthPageState(authModel: authModel, isLoading: false));
+        emit(AuthPageState(
+          authModel: authModel,
+          isLoading: false,
+        ));
       } on Exception catch (e) {
         handleError(
           e,

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:b2b_client_lk/src/features/auth/domain/auth_service.dart';
 import 'package:b2b_client_lk/src/features/shopping_cart/domain/shopping_cart_service.dart';
 import 'package:b2b_client_lk/src/features/user_data/domain/user_data_service.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'main_page_state.dart';
@@ -24,11 +25,11 @@ class MainPageCubit extends Cubit<MainPageState> {
 
   Future<void> subscribeAuthStream() async {
     _streamSubscription = _authService.authState.listen((authState) async {
-      final isLoggedIn = await _authService.userLoggedIn();
+      final isLoggedIn = _authService.userLoggedIn();
 
-      // if (isLoggedIn) {
-      //   await _userDataService.initUserData();
-      // }
+      if (isLoggedIn) {
+        await _userDataService.initUserData();
+      }
 
       emit(MainPageState(isLoggedIn: isLoggedIn, isLoading: false));
     });

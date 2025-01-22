@@ -3,12 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'user_data_response_model.g.dart';
 
-List<UserDataResponse> userDataFromJson(List<dynamic> data) =>
-    List<UserDataResponse>.from(
-      data.map(
-        (x) => _$UserDataResponseFromJson(x as Map<String, dynamic>),
-      ),
-    );
+UserDataResponse userDataFromJson(Map<String, dynamic> data) => _$UserDataResponseFromJson(data);
 
 @HiveType(typeId: 1)
 @JsonSerializable()
@@ -24,4 +19,8 @@ class UserDataResponse {
   @JsonKey(name: 'token')
   @HiveField(1, defaultValue: '')
   String token;
+
+  UserDataResponse.empty()
+      : name = '',
+        token = '';
 }

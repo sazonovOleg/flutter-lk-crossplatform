@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
 
 class AuthApi {
   final Dio _dio;
@@ -7,10 +6,6 @@ class AuthApi {
   AuthApi(this._dio);
 
   Future<Response?> login(String name, String password) async {
-
-    debugPrint('devv name = ${name}');
-    debugPrint('devv pass = ${password}');
-
     try {
       final res = await _dio.post(
         'api/auth/login',

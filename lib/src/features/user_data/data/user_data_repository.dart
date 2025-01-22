@@ -14,11 +14,17 @@ class UserDataRepository {
   );
 
   Future<UserDataResponse> initUserData() async {
-    final userDataResponse = await _userDataApi.getUserData();
+    final res = await _userDataApi.getUserData();
 
-    await _userDataStorage.saveUserData(userDataResponse);
+    if (res == null || res.statusCode == 500) {
+      return UserDataResponse.empty();
+    } else {
+      final _userDataFromJson = userDataFromJson(res.data['user']);
 
-    return userDataResponse;
+      await _userDataStorage.saveUserData(_userDataFromJson);
+
+      return _userDataFromJson;
+    }
   }
 
   Future<void> saveUserData(UserData userData) async {
@@ -30,7 +36,7 @@ class UserDataRepository {
     );
   }
 
-  Future<UserData> getUserData() async {
+  Future<UserData> getUserDataFromStorage() async {
     final userDataResponse = await _userDataStorage.getUserData();
 
     return UserData(
@@ -43,9 +49,9 @@ class UserDataRepository {
     await _userDataStorage.setLoggedIn(value);
   }
 
-  Future<bool> isLoggedIn() async {
-    final isLogin = await _userDataStorage.isLoggedIn();
+  bool isLoggedIn() {
+    final isLogin = _userDataStorage.isLoggedIn();
 
-    return isLogin ?? false;
+    return isLogin;
   }
 }
