@@ -28,13 +28,17 @@ class ProfilePageCubit extends Cubit<ProfilePageState> {
   }
 
   Future<void> onBackPressed(BuildContext context) async {
-    context.canPop() ? context.pop() : context.pushNamed(MainPageRoute.pageName);
+    context.canPop() ? context.pop() : await context.pushNamed(MainPageRoute.pageName);
   }
 
   Future<void> logout(BuildContext context) async {
     await _authService.logoOut();
 
-    if (context.mounted) context.pop();
+    if (context.mounted && context.canPop()) {
+      context.pop();
+    } else {
+      context.pushReplacement(MainPageRoute.pageName);
+    }
   }
 
   Future<void> updateUserData() async {

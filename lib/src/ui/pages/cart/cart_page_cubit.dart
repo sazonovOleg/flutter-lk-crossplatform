@@ -18,7 +18,7 @@ class CartPageCubit extends Cubit<CartPageState> {
   ) : super(CartPageState());
 
   Future<void> onBackPressed(BuildContext context) async {
-    context.canPop() ? context.pop() : context.pushNamed(MainPageRoute.pageName);
+    context.canPop() ? context.pop() : await context.pushNamed(MainPageRoute.pageName);
   }
 
   StreamSubscription? _scStreamSubscription;

@@ -147,14 +147,14 @@ class _Email extends StatelessWidget {
             onChanged: bloc.validateEmail,
             decoration: const InputDecoration(
               prefixIcon: Icon(
-                Icons.email,
+                Icons.account_circle,
                 size: 20,
               ),
               contentPadding: EdgeInsets.only(
                 top: 13,
                 left: 10,
               ),
-              hintText: 'Адрес электронной почты',
+              hintText: 'Логин',
               isDense: false,
               border: InputBorder.none,
             ),
@@ -217,7 +217,7 @@ class _RecoveryCodeTextField extends StatelessWidget {
           padding: const EdgeInsets.only(bottom: 10),
           child: Text(
             textAlign: TextAlign.center,
-            'Введите 6-значный код, который мы отправили на эл.адрес ${state.userEmail}',
+            'Ваш код 123456',
           ),
         ),
         Container(

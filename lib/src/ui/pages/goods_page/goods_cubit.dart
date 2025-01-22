@@ -48,7 +48,7 @@ class GoodsPageCubit extends Cubit<GoodsPageState> {
   }
 
   Future<void> onBackPressed(BuildContext context) async {
-    context.canPop() ? context.pop() : context.pushNamed(MainPageRoute.pageName);
+    context.canPop() ? context.pop() : await context.pushNamed(MainPageRoute.pageName);
   }
 
   Future<void> updateGoodsList() async {

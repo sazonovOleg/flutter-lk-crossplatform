@@ -37,6 +37,7 @@ class AuthPageCubit extends Cubit<AuthPageState> with ErrorHandler {
     if (isShowLoginBtn()) {
       emit(AuthPageState(isLoading: true));
       try {
+
         final authModel = await _authService.signInWithEmailAndPassword(
           email,
           password,
@@ -60,11 +61,23 @@ class AuthPageCubit extends Cubit<AuthPageState> with ErrorHandler {
   }
 
   void validateEmail(String value) {
-    final isShow = value.contains('@');
+    final isLogin = value.length >= 3;
 
     emit(
       AuthPageState(
-        isShowLoginBtn: isShow,
+        isLogin: isLogin,
+        isPass: state.isPass,
+      ),
+    );
+  }
+
+  void validatePass(String value) {
+    final isPass = value.length >= 3;
+
+    emit(
+      AuthPageState(
+        isLogin: state.isLogin,
+        isPass: isPass,
       ),
     );
   }

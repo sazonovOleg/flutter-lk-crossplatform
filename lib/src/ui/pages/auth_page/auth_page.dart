@@ -74,7 +74,7 @@ class _Body extends StatelessWidget {
                   bloc: bloc,
                   state: state,
                 ),
-                if (bloc.isShowLoginBtn())
+                if (state.isLogin && state.isPass)
                   _LoginButton(
                     bloc: bloc,
                     state: state,
@@ -166,6 +166,7 @@ class _Login extends StatelessWidget {
           child: TextField(
             controller: bloc.passController,
             obscureText: state.isShowPass,
+            onChanged: bloc.validatePass,
             decoration: InputDecoration(
               prefixIcon: const Icon(
                 Icons.lock,
