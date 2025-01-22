@@ -1,6 +1,5 @@
 import 'package:b2b_client_lk/src/ui/pages/auth_page/auth_page_route.dart';
 import 'package:b2b_client_lk/src/ui/pages/cart/cart_page_route.dart';
-import 'package:b2b_client_lk/src/ui/pages/catalog_page/catalog_page_route.dart';
 import 'package:b2b_client_lk/src/ui/pages/favorites/favorites_page_route.dart';
 import 'package:b2b_client_lk/src/ui/pages/goods_item_page/goods_item_route.dart';
 import 'package:b2b_client_lk/src/ui/pages/goods_page/goods_route.dart';
@@ -20,7 +19,6 @@ final GoRouter routerConfig = GoRouter(
     MainPageRoute(),
     AuthPageRoute(),
     RecoveryPassRoute(),
-    CatalogPageRoute(),
     ProfilePageRoute(),
     GoodsPageRoute(),
     GoodsItemPageRoute(),

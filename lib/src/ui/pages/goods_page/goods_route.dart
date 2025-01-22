@@ -16,10 +16,7 @@ class GoodsPageRoute extends GoRoute {
             create: (context) => GoodsPageCubit(
               context.read<CatalogService>(),
             ),
-            child: GoodsPage(
-              categoryId: state.pathParameters['categoryId'] ?? '',
-              searchText: '',
-            ),
+            child: GoodsPage(),
           ),
         );
 }

@@ -22,7 +22,6 @@ import 'package:b2b_client_lk/src/features/user_data/domain/user_data_service.da
 import 'package:b2b_client_lk/src/ui/common/theme/theme.dart';
 import 'package:b2b_client_lk/src/ui/pages/auth_page/auth_page_cubit.dart';
 import 'package:b2b_client_lk/src/ui/pages/cart/cart_page_cubit.dart';
-import 'package:b2b_client_lk/src/ui/pages/catalog_page/catalog_page_cubit.dart';
 import 'package:b2b_client_lk/src/ui/pages/favorites/favorites_page_cubit.dart';
 import 'package:b2b_client_lk/src/ui/pages/goods_item_page/goods_item_cubit.dart';
 import 'package:b2b_client_lk/src/ui/pages/goods_page/goods_cubit.dart';
@@ -161,7 +160,6 @@ class Providers extends StatelessWidget {
             create: (context) => MainPageCubit(
               context.read<AuthService>(),
               context.read<UserDataService>(),
-              context.read<ShoppingCartService>(),
             ),
           ),
           BlocProvider<AuthPageCubit>(
@@ -172,11 +170,6 @@ class Providers extends StatelessWidget {
           BlocProvider<RecoveryPassCubit>(
             create: (context) => RecoveryPassCubit(
               context.read<AuthService>(),
-            ),
-          ),
-          BlocProvider<CatalogPageCubit>(
-            create: (context) => CatalogPageCubit(
-              context.read<CatalogService>(),
             ),
           ),
           BlocProvider<ProfilePageCubit>(

@@ -1,13 +1,9 @@
 import 'dart:async';
 
 import 'package:b2b_client_lk/src/features/auth/data/auth_repository.dart';
+import 'package:b2b_client_lk/src/features/auth/domain/models/auth_model.dart';
 import 'package:b2b_client_lk/src/features/user_data/domain/user_data_service.dart';
 import 'package:rxdart/rxdart.dart';
-
-import '../../common/device_info/device_info.dart';
-import 'auth_exceptions.dart';
-
-enum AuthState { loggedIn, loggedOut }
 
 class AuthService {
   final AuthRepository _authRepository;
@@ -29,36 +25,23 @@ class AuthService {
     _authState.value = false;
   }
 
-  Future<void> signInWithEmailAndPassword(
-    String email,
+  Future<AuthModel> signInWithEmailAndPassword(
+    String name,
     String password,
   ) async {
-    try {
-      await _authRepository.saveEmail(email);
-      await _authRepository.savePassword(password);
-      await authOnBackend();
-    } on Exception catch (e) {
-      if (e.toString() == 'user-not-found') {
-        throw UserNotFoundException();
-      } else if (e.toString() == 'wrong-password') {
-        throw WrongPasswordException();
-      } else if (e.toString() == 'Given String is empty or null') {
-        throw EmptyStringException();
-      } else if (e.toString() == 'invalid-email') {
-        throw InvalidEmailException();
-      }
-    }
+    return await authOnBackend(name, password);
   }
 
-  Future<void> authOnBackend() async {
-    final deviceInfo = await DeviceInfo().getDeviceInfo(null);
-    final status = await _authRepository.sendDeviceInfo(deviceInfo);
+  Future<AuthModel> authOnBackend(String name, String password) async {
+    final authModel = await _authRepository.login(name, password);
 
-    if (status != null && status == 200) {
+    if (authModel.statusCode == 200) {
       await _userDataService.setLoggedIn(true);
       _authState.value = true;
+
+      return authModel;
     } else {
-      throw Exception();
+      return authModel;
     }
   }
 

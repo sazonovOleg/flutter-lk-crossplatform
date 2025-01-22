@@ -83,11 +83,7 @@ class _Body extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.only(bottom: 10),
-            child: Text('Почта: ${state.userData.email}'),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 10),
-            child: Text('Номер телефона: ${state.userData.phone}'),
+            child: Text('Имя: ${state.userData.token}'),
           ),
           const SizedBox(height: 10),
           ElevatedButton(

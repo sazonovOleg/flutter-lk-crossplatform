@@ -1,5 +1,4 @@
 import 'package:b2b_client_lk/src/features/auth/domain/auth_service.dart';
-import 'package:b2b_client_lk/src/features/shopping_cart/domain/shopping_cart_service.dart';
 import 'package:b2b_client_lk/src/features/user_data/domain/user_data_service.dart';
 import 'package:b2b_client_lk/src/ui/pages/main_page/main_page.dart';
 import 'package:b2b_client_lk/src/ui/pages/main_page/main_page_cubit.dart';
@@ -18,7 +17,6 @@ class MainPageRoute extends GoRoute {
             create: (context) => MainPageCubit(
               context.read<AuthService>(),
               context.read<UserDataService>(),
-              context.read<ShoppingCartService>(),
             ),
             child: const MainPage(),
           ),

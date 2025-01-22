@@ -14,15 +14,16 @@ class OnRequest extends Interceptor {
     RequestOptions options,
     RequestInterceptorHandler handler,
   ) async {
-    final userLogin = await _userDataStorage.getUserEmail();
-    final userPass = await _userDataStorage.getUserPassword();
-
-    if (userLogin != '' && userPass != '') {
-      options.headers['Authorization'] = 'Basic ${base64Encode(
-        utf8.encode('$userLogin:$userPass'),
-      )}';
-
-      super.onRequest(options, handler);
-    }
+    // final userLogin = await _userDataStorage.getUserEmail();
+    // final userPass = await _userDataStorage.getUserPassword();
+    //
+    // if (userLogin != '' && userPass != '') {
+    //   options.headers['Authorization'] = 'Basic ${base64Encode(
+    //     utf8.encode('$userLogin:$userPass'),
+    //   )}';
+    //
+    //   super.onRequest(options, handler);
+    // }
+    super.onRequest(options, handler);
   }
 }

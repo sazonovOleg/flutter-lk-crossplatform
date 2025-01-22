@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:b2b_client_lk/src/features/favorites/domain/favorites_service.dart';
 import 'package:b2b_client_lk/src/features/favorites/domain/models/favorites_model.dart';
-import 'package:b2b_client_lk/src/ui/pages/catalog_page/catalog_page_route.dart';
 import 'package:b2b_client_lk/src/ui/pages/goods_item_page/goods_item_route.dart';
+import 'package:b2b_client_lk/src/ui/pages/main_page/main_page_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -40,7 +40,7 @@ class FavoritesPageCubit extends Cubit<FavoritesPageState> {
   }
 
   Future<void> onBackPressed(BuildContext context) async {
-    context.canPop() ? context.pop() : context.pushNamed(CatalogPageRoute.pageName);
+    context.canPop() ? context.pop() : context.pushNamed(MainPageRoute.pageName);
   }
 
   @override

@@ -41,12 +41,6 @@ class FavoritesService {
     await init();
   }
 
-  Future<int> getTotalQuantity() async {
-    final favorites = await _favoritesRepository.getFavoritesFromStorage();
-
-    return favorites.quantity;
-  }
-
   void dispose() {
     _favorites.close();
   }

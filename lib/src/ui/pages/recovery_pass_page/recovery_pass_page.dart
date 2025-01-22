@@ -398,9 +398,7 @@ class _Btn extends StatelessWidget {
             ),
           ),
           backgroundColor: WidgetStateProperty.all(
-            const Color(
-              0xFFFF6347,
-            ),
+            Theme.of(context).primaryColor,
           ),
         ),
         child: Text(

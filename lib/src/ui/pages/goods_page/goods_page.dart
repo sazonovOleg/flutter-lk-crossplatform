@@ -1,26 +1,14 @@
 import 'package:b2b_client_lk/src/features/catalog/domain/models/goods_model/goods_model.dart';
-import 'package:b2b_client_lk/src/features/favorites/domain/favorites_service.dart';
-import 'package:b2b_client_lk/src/features/shopping_cart/domain/shopping_cart_service.dart';
-import 'package:b2b_client_lk/src/ui/common/favorites_buttons/add_to_favorites_button/add_to_favorites_button.dart';
-import 'package:b2b_client_lk/src/ui/common/favorites_buttons/add_to_favorites_button/add_to_favorites_button_vm.dart';
 import 'package:b2b_client_lk/src/ui/common/image.dart';
-import 'package:b2b_client_lk/src/ui/common/shopping_cart_buttons/add_to_shopping_cart/add_to_shoping_cart_button.dart.dart';
-import 'package:b2b_client_lk/src/ui/common/shopping_cart_buttons/add_to_shopping_cart/add_to_shoping_cart_button_vm.dart';
 import 'package:b2b_client_lk/src/ui/components/loading_page.dart';
 import 'package:b2b_client_lk/src/ui/pages/goods_page/goods_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:provider/provider.dart';
 
 import 'goods_cubit.dart';
 
 class GoodsPage extends StatefulWidget {
-  final String categoryId;
-  final String searchText;
-
   const GoodsPage({
-    required this.categoryId,
-    required this.searchText,
     super.key,
   });
 
@@ -32,7 +20,7 @@ class _State extends State<GoodsPage> {
   @override
   void initState() {
     super.initState();
-    context.read<GoodsPageCubit>().init(widget.categoryId, widget.searchText);
+    context.read<GoodsPageCubit>().init();
   }
 
   @override
@@ -67,9 +55,6 @@ class _AppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       centerTitle: true,
-      leading: BackButton(
-        onPressed: () => bloc.onBackPressed(context),
-      ),
       actions: [
         InkWell(
           onTap: () => bloc.goToProfile(context),
@@ -121,13 +106,14 @@ class _GoodsList extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       physics: const AlwaysScrollableScrollPhysics(),
-      child: SizedBox(
+      child: Container(
         width: double.infinity,
+        margin: EdgeInsets.only(top: 15),
         child: Wrap(
           crossAxisAlignment: WrapCrossAlignment.center,
           alignment: WrapAlignment.center,
-          runSpacing: 20,
-          spacing: 20,
+          runSpacing: 15,
+          spacing: 15,
           children: state.goodsList
               .map(
                 (item) => _GoodsListItem(
@@ -157,10 +143,10 @@ class _GoodsListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
-    final maxWidth = width / 2 - 30;
+    final maxWidth = width / 2 - 25;
 
     return InkWell(
-      onTap: () => bloc.goToGoodsItem(context, item.kod),
+      onTap: () => bloc.goToGoodsItem(context, item.id),
       child: Container(
         width: double.infinity,
         constraints: BoxConstraints(maxWidth: maxWidth),
@@ -183,35 +169,15 @@ class _GoodsListItem extends StatelessWidget {
           borderRadius: BorderRadius.circular(8),
         ),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(
-                  width: 30,
-                  height: 30,
-                ),
-                Img(
-                  imageUrl: item.image,
-                  height: 100,
-                  width: 100,
-                ),
-              ],
+            Text('${item.name}'),
+            Img(
+              imageUrl: item.img,
+              height: 100,
+              width: 100,
             ),
-            Text('Название: ${item.name}'),
-            Text('Арт: ${item.art}'),
             Text('Цена: ${item.price}₽'),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('Наличие: ${item.remnant}'),
-                const SizedBox(
-                  height: 15,
-                ),
-              ],
-            ),
           ],
         ),
       ),

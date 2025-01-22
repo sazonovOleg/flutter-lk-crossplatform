@@ -17,11 +17,8 @@ class UserDataStorage {
   Future<UserDataResponse> getUserData() async {
     final value = await _hiveStorage.getValue(_userData) ??
         UserDataResponse(
-          surname: '',
           name: '',
-          lastName: '',
-          phone: '',
-          email: '',
+          token: '',
         );
 
     return value;
@@ -31,32 +28,14 @@ class UserDataStorage {
     await _hiveStorage.saveValue(_userData, userData);
   }
 
-  Future<void> saveEmail(String email) async {
-    final userData = await getUserData();
-    userData.email = email;
-    saveUserEmail(email);
-    await _hiveStorage.saveValue(_userData, userData);
-  }
-
   Future<void> clear() async {
     await _hiveStorage.saveValue(
       _userData,
       UserDataResponse(
-        surname: '',
         name: '',
-        lastName: '',
-        phone: '',
-        email: '',
+        token: '',
       ),
     );
-  }
-
-  void saveUserPin(String pin) {
-    _sharedPref.setString('user_pin', pin);
-  }
-
-  Future<String?> getUserPin() {
-    return _sharedPref.getString('user_pin');
   }
 
   void saveUserPassword(String password) {
@@ -69,15 +48,6 @@ class UserDataStorage {
     return pass ?? '';
   }
 
-  void saveUserEmail(String email) {
-    _sharedPref.setString('user_email_pref', email);
-  }
-
-  Future<String> getUserEmail() async {
-    final email = await _sharedPref.getString('user_email_pref');
-
-    return email ?? '';
-  }
 
   Future<void> setLoggedIn(bool value) async {
     await _sharedPref.setBool('login_user', value);
@@ -85,13 +55,5 @@ class UserDataStorage {
 
   Future<bool?> isLoggedIn() {
     return _sharedPref.getBool('login_user');
-  }
-
-  void skipPinCode(String key, bool value) {
-    _sharedPref.setBool('user_pass_pin_$key', value);
-  }
-
-  Future<bool?> isUserPin(String key) async {
-    return _sharedPref.getBool('user_pass_pin_$key');
   }
 }

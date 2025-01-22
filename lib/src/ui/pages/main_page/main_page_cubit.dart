@@ -10,12 +10,10 @@ import 'main_page_state.dart';
 class MainPageCubit extends Cubit<MainPageState> {
   final AuthService _authService;
   final UserDataService _userDataService;
-  final ShoppingCartService _scService;
 
   MainPageCubit(
     this._authService,
     this._userDataService,
-    this._scService,
   ) : super(const MainPageState());
 
   late StreamSubscription? _streamSubscription;
@@ -28,11 +26,9 @@ class MainPageCubit extends Cubit<MainPageState> {
     _streamSubscription = _authService.authState.listen((authState) async {
       final isLoggedIn = await _authService.userLoggedIn();
 
-      if (isLoggedIn) {
-        await _userDataService.initUserData();
-        await _scService.saveShoppingCart();
-        await _scService.setShoppingCart();
-      }
+      // if (isLoggedIn) {
+      //   await _userDataService.initUserData();
+      // }
 
       emit(MainPageState(isLoggedIn: isLoggedIn, isLoading: false));
     });

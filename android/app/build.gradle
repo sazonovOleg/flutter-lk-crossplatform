@@ -39,7 +39,7 @@ if (keystorePropertiesFile.exists()) {
 android {
     compileSdkVersion 34
     ndkVersion flutter.ndkVersion
-    namespace 'com.example.am_framework'
+    namespace 'com.example.lk'
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -55,7 +55,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.am_framework.android"
+        applicationId "com.lk.android"
         minSdkVersion 23
         targetSdkVersion 34
         versionCode flutterVersionCode.toInteger()

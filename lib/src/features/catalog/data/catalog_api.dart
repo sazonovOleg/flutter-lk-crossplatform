@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
-import 'models/catgories_model/categories_model.dart';
-import 'models/filters_model/filters_model.dart';
+import 'package:flutter/cupertino.dart';
 import 'models/good_card_model/good_card_data_model.dart';
 import 'models/goods_list_model/goods_list_item_model.dart';
 
@@ -9,37 +8,12 @@ class CatalogApi {
 
   CatalogApi(this._dio);
 
-  Future<List<CatalogCategoryResponse>> getCategories(
-    String categoryId,
-    String groupId,
-  ) async {
-    final response = await _dio.get(
-      'categories/param?&categoryId=$categoryId&groupId=$groupId',
-    );
+  Future<List<GoodsListItemResponse>> getGoodsList() async {
+    final response = await _dio.get('api/goods/');
 
-    return categoriesFromJson(response.data);
-  }
+    debugPrint('devv data = ${response.data['goods']}');
 
-  Future<List<GoodsListItemResponse>> getGoodsList(
-    String categoryId,
-    String searchText,
-    String groupId,
-    List<FilterItemResponse> selectedFilters,
-    List<String> excludedProducts,
-    String sort,
-  ) async {
-    final data = {
-      'filters':
-          selectedFilters.isNotEmpty ? filtersListToJson(selectedFilters) : [],
-      'excludedProducts': excludedProducts,
-      'sort': sort,
-    };
-    final response = await _dio.post(
-      'goods/param?categoryId=$categoryId&searchText=$searchText&groupId=$groupId&goods',
-      data: data,
-    );
-
-    return goodsListFromJson(response.data);
+    return goodsListFromJson(response.data['goods']);
   }
 
   Future<GoodCardDataResponse> getGoodCardData(
@@ -51,20 +25,6 @@ class CatalogApi {
     );
 
     return goodCardDataFromJson(response.data).first;
-  }
-
-  Future<List<FilterItemResponse>> getFilters(
-    String categoryId,
-    String searchText,
-    List<FilterItemResponse> selectedFilters,
-    String groupId,
-  ) async {
-    final response = await _dio.post(
-      'filters/param?categoryId=$categoryId&searchText=$searchText&groupId=$groupId',
-      data: filtersListToJson(selectedFilters),
-    );
-
-    return filtersListFromJson(response.data);
   }
 
   Future<List<String>> getSearchHistory() async {

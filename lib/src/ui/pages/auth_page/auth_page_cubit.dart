@@ -1,9 +1,7 @@
 import 'dart:async';
 
-import 'package:b2b_client_lk/src/features/auth/domain/auth_exceptions.dart';
 import 'package:b2b_client_lk/src/features/auth/domain/auth_service.dart';
 import 'package:b2b_client_lk/src/ui/common/error_handler.dart';
-import 'package:b2b_client_lk/src/ui/components/show_message.dart';
 import 'package:b2b_client_lk/src/ui/pages/recovery_pass_page/recovery_pass_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,9 +14,9 @@ class AuthPageCubit extends Cubit<AuthPageState> with ErrorHandler {
 
   AuthPageCubit(
     this._authService,
-  ) : super(const AuthPageState());
+  ) : super(AuthPageState());
 
-  TextEditingController emailController = TextEditingController();
+  TextEditingController loginController = TextEditingController();
   TextEditingController passController = TextEditingController();
 
   Future<void> goToRecoveryPassPage(BuildContext context) async {
@@ -26,30 +24,35 @@ class AuthPageCubit extends Cubit<AuthPageState> with ErrorHandler {
   }
 
   bool isShowLoginBtn() {
-    return emailController.text.contains('@');
+    final isLogin = loginController.text.length >= 3;
+    final isPass = passController.value.text.length >= 3;
+
+    return isLogin && isPass;
   }
 
   Future<void> login() async {
-    final email = emailController.text;
+    final email = loginController.text;
     final password = passController.text;
 
-    if (email.contains('@') && password.isNotEmpty) {
-      emit(const AuthPageState(isLoading: true));
+    if (isShowLoginBtn()) {
+      emit(AuthPageState(isLoading: true));
       try {
         await _authService.signInWithEmailAndPassword(
           email,
           password,
         );
-      } on AuthException catch (e) {
-        AppMessages().showMessage(
-          e.errorMessage,
+
+        final authModel = await _authService.signInWithEmailAndPassword(
+          email,
+          password,
         );
-        emit(const AuthPageState(isLoading: false));
+
+        emit(AuthPageState(authModel: authModel, isLoading: false));
       } on Exception catch (e) {
         handleError(
           e,
         );
-        emit(const AuthPageState(isLoading: false));
+        emit(AuthPageState(isLoading: false));
       }
     }
   }

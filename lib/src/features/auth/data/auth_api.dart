@@ -1,16 +1,37 @@
-import 'package:b2b_client_lk/src/features/common/device_info/device_info.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
 
 class AuthApi {
   final Dio _dio;
+
   AuthApi(this._dio);
 
-  Future<int?> sendDeviceInfo(DeviceInfo deviceInfo) async {
-    final res = await _dio.put(
-      'device_info/param?deviceId=${deviceInfo.deviceId}&platform=${deviceInfo.platform}&token=${deviceInfo.token}',
-    );
+  Future<Response?> login(String name, String password) async {
 
-    return res.statusCode;
+    debugPrint('devv name = ${name}');
+    debugPrint('devv pass = ${password}');
+
+    try {
+      final res = await _dio.post(
+        'api/auth/login',
+        data: {
+          'name': name,
+          'password': password,
+        },
+      );
+
+      return res;
+    } on DioException catch (e, s) {
+      print('DioException error ===== ${e.error}');
+      print('DioException stackTrace ===== ${s}');
+      print('DioException data ===== ${e.response?.data}');
+
+      return e.response;
+    } on Exception catch (e) {
+      print('Error ===== ${e}');
+
+      return null;
+    }
   }
 
   Future<bool> recoveryPass(String email) async {

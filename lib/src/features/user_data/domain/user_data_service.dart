@@ -1,7 +1,8 @@
 import 'dart:async';
+
 import 'package:b2b_client_lk/src/features/user_data/data/user_data_repository.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:rxdart/rxdart.dart';
+
 import 'models/user_data_model.dart';
 
 class UserDataService {
@@ -21,11 +22,8 @@ class UserDataService {
     final userDataResponse = await _userDataRepository.initUserData();
 
     final userData = UserData(
-      surname: userDataResponse.surname,
       name: userDataResponse.name,
-      lastName: userDataResponse.lastName,
-      phone: userDataResponse.phone,
-      email: userDataResponse.email,
+      token: userDataResponse.token,
     );
 
     await _userDataRepository.saveUserData(userData);
@@ -37,34 +35,8 @@ class UserDataService {
     return _userDataRepository.getUserData();
   }
 
-  Future<void> saveAddress(
-    String country,
-    String city,
-    String street,
-    String house,
-    String apartment,
-  ) async {
-    await _userDataRepository.saveAddress(
-      country,
-      city,
-      street,
-      house,
-      apartment,
-    );
-  }
-
   void dispose() {
     _userData.close();
-  }
-
-  Future<String> getPin() async {
-    final pin = await _userDataRepository.getPin();
-
-    return pin;
-  }
-
-  Future<String> getPassword() async {
-    return _userDataRepository.getPassword();
   }
 
   Future<void> setLoggedIn(bool value) async {

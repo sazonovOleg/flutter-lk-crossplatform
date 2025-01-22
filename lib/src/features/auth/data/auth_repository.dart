@@ -1,5 +1,6 @@
-import 'package:b2b_client_lk/src/features/common/device_info/device_info.dart';
+import 'package:b2b_client_lk/src/features/auth/domain/models/auth_model.dart';
 import 'package:b2b_client_lk/src/features/user_data/data/user_data_storage.dart';
+
 import 'auth_api.dart';
 
 class AuthRepository {
@@ -15,14 +16,17 @@ class AuthRepository {
     await _userDataStorage.clear();
   }
 
-  Future<int?> sendDeviceInfo(DeviceInfo deviceInfo) async {
-    final status = await _authApi.sendDeviceInfo(deviceInfo);
+  Future<AuthModel> login(String name, String password) async {
+    final res = await _authApi.login(name, password);
 
-    return status;
-  }
-
-  Future<void> saveEmail(String email) async {
-    await _userDataStorage.saveEmail(email);
+    if (res != null) {
+      return AuthModel(
+        statusCode: res.statusCode ?? 0,
+        message: res.data['message'] ?? '',
+      );
+    } else {
+      return AuthModel.empty();
+    }
   }
 
   Future<void> savePassword(String password) async {
@@ -42,7 +46,7 @@ class AuthRepository {
   Future<bool> checkRecoveryCode(String code) async {
     final isChecked = await _authApi.checkRecoveryCode(code);
 
-     return isChecked;
+    return isChecked;
   }
 
   Future<bool> setNewPass(String newPass) async {

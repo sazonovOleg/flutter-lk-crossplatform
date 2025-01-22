@@ -1,7 +1,7 @@
 import 'package:b2b_client_lk/src/features/auth/domain/auth_service.dart';
 import 'package:b2b_client_lk/src/features/user_data/domain/models/user_data_model.dart';
 import 'package:b2b_client_lk/src/features/user_data/domain/user_data_service.dart';
-import 'package:b2b_client_lk/src/ui/pages/catalog_page/catalog_page_route.dart';
+import 'package:b2b_client_lk/src/ui/pages/main_page/main_page_route.dart';
 import 'package:b2b_client_lk/src/ui/pages/profile_page/profile_page_state.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,7 +26,7 @@ class ProfilePageCubit extends Cubit<ProfilePageState> {
   }
 
   Future<void> onBackPressed(BuildContext context) async {
-    context.canPop() ? context.pop() : context.pushNamed(CatalogPageRoute.pageName);
+    context.canPop() ? context.pop() : context.pushNamed(MainPageRoute.pageName);
   }
 
   Future<void> logout(BuildContext context) async {

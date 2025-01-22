@@ -16,30 +16,18 @@ String goodsListToJson(List<GoodsListItemResponse> data) =>
 @JsonSerializable()
 class GoodsListItemResponse {
   GoodsListItemResponse({
-    required this.priceName,
+    required this.id,
     required this.price,
     required this.name,
-    required this.art,
-    required this.kod,
-    required this.remnant,
-    required this.image,
-    required this.ownerId,
+    required this.img,
   });
 
-  @JsonKey(name: 'ВидыЦены')
-  String priceName;
-  @JsonKey(name: 'Цена')
-  double price;
-  @JsonKey(name: 'Наименование')
+  @JsonKey(name: 'id')
+  num id;
+  @JsonKey(name: 'price')
+  String price;
+  @JsonKey(name: 'name')
   String name;
-  @JsonKey(name: 'Артикул')
-  String art;
-  @JsonKey(name: 'Код')
-  String kod;
-  @JsonKey(name: 'Остаток')
-  num remnant;
-  @JsonKey(name: 'Изображение')
-  String image;
-  @JsonKey(name: 'КодВладельца')
-  String ownerId;
+  @JsonKey(name: 'img')
+  String img;
 }

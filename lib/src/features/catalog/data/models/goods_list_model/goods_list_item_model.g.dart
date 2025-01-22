@@ -9,25 +9,17 @@ part of 'goods_list_item_model.dart';
 GoodsListItemResponse _$GoodsListItemResponseFromJson(
         Map<String, dynamic> json) =>
     GoodsListItemResponse(
-      priceName: json['ВидыЦены'] as String,
-      price: (json['Цена'] as num).toDouble(),
-      name: json['Наименование'] as String,
-      art: json['Артикул'] as String,
-      kod: json['Код'] as String,
-      remnant: json['Остаток'] as num,
-      image: json['Изображение'] as String,
-      ownerId: json['КодВладельца'] as String,
+      id: json['id'] as num,
+      price: json['price'] as String,
+      name: json['name'] as String,
+      img: json['img'] as String,
     );
 
 Map<String, dynamic> _$GoodsListItemResponseToJson(
         GoodsListItemResponse instance) =>
     <String, dynamic>{
-      'ВидыЦены': instance.priceName,
-      'Цена': instance.price,
-      'Наименование': instance.name,
-      'Артикул': instance.art,
-      'Код': instance.kod,
-      'Остаток': instance.remnant,
-      'Изображение': instance.image,
-      'КодВладельца': instance.ownerId,
+      'id': instance.id,
+      'price': instance.price,
+      'name': instance.name,
+      'img': instance.img,
     };

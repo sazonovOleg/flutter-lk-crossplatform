@@ -14,26 +14,14 @@ List<UserDataResponse> userDataFromJson(List<dynamic> data) =>
 @JsonSerializable()
 class UserDataResponse {
   UserDataResponse({
-    required this.surname,
     required this.name,
-    required this.lastName,
-    required this.email,
-    required this.phone,
+    required this.token,
   });
 
-  @JsonKey(name: 'Фамилия')
+  @JsonKey(name: 'name')
   @HiveField(0, defaultValue: '')
-  String surname;
-  @JsonKey(name: 'Имя')
-  @HiveField(1, defaultValue: '')
   String name;
-  @JsonKey(name: 'Отчество')
-  @HiveField(2, defaultValue: '')
-  String lastName;
-  @JsonKey(name: 'НомерТелефона')
-  @HiveField(3, defaultValue: '')
-  String phone;
-  @JsonKey(name: 'Email')
-  @HiveField(4, defaultValue: '')
-  String email;
+  @JsonKey(name: 'token')
+  @HiveField(1, defaultValue: '')
+  String token;
 }
