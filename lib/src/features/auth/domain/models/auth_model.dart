@@ -9,5 +9,5 @@ class AuthModel {
 
   AuthModel.empty()
       : statusCode = 0,
-        message = 'Ошибка при обработке данных';
+        message = 'Ошибка сервера';
 }

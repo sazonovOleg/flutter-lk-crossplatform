@@ -36,7 +36,7 @@ dependencies:
   intl: ^0.17.0
   #cache network image
   cached_network_image: ^3.3.1
-  # provider
+  #provider
   provider: ^6.1.2
 
 dev_dependencies:

@@ -1,3 +1,4 @@
+import 'package:b2b_client_lk/src/ui/components/loading_page.dart';
 import 'package:b2b_client_lk/src/ui/pages/profile_page/profile_page_cubit.dart';
 import 'package:b2b_client_lk/src/ui/pages/profile_page/profile_page_state.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +22,7 @@ class _State extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-    final bloc = context.read<ProfilePageCubit>();
+    final bloc = BlocProvider.of<ProfilePageCubit>(context);
 
     return BlocBuilder<ProfilePageCubit, ProfilePageState>(
       bloc: bloc,
@@ -29,13 +30,15 @@ class _State extends State<ProfilePage> {
         appBar: _AppBar(
           bloc: bloc,
         ),
-        body: state.userData!.name.isNotEmpty
-            ? _Body(
-                bloc: bloc,
-                state: state,
-              )
-            : null,
-        bottomSheet: state.userData!.name.isNotEmpty
+        body: state.isLoading
+            ? LoadingPage()
+            : state.userData!.name.isNotEmpty
+                ? _Body(
+                    bloc: bloc,
+                    state: state,
+                  )
+                : null,
+        bottomSheet: state.userData!.name.isNotEmpty && !state.isLoading
             ? _LogoutBtn(
                 bloc: bloc,
               )

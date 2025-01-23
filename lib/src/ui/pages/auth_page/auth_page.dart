@@ -22,7 +22,7 @@ class _WidgetState extends State<AuthPage> {
 
   @override
   Widget build(BuildContext context) {
-    final bloc = context.read<AuthPageCubit>();
+    final bloc = BlocProvider.of<AuthPageCubit>(context);
 
     return Scaffold(
       appBar: _AppBar(),

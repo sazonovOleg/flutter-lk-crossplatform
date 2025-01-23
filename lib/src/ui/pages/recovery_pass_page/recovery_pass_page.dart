@@ -20,7 +20,7 @@ class _WidgetState extends State<RecoveryPassPage> {
 
   @override
   Widget build(BuildContext context) {
-    final bloc = context.read<RecoveryPassCubit>();
+    final bloc = BlocProvider.of<RecoveryPassCubit>(context);
     final height = MediaQuery.of(context).size.height;
 
     return Scaffold(

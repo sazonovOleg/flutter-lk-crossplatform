@@ -6,7 +6,7 @@ class ProfilePageState {
   final String errorMessage;
 
   ProfilePageState({
-    this.isLoading = false,
+    this.isLoading = true,
     this.userData,
     this.errorMessage = 'Ошибка при обработке данных'
   });

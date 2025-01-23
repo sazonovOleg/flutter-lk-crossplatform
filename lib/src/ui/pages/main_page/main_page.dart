@@ -29,7 +29,7 @@ class _State extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
-    final bloc = context.read<MainPageCubit>();
+    final bloc = BlocProvider.of<MainPageCubit>(context);
 
     return BlocBuilder<MainPageCubit, MainPageState>(
       bloc: bloc,

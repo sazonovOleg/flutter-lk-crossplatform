@@ -24,7 +24,7 @@ class _State extends State<FavoritesPage> {
 
   @override
   Widget build(BuildContext context) {
-    final bloc = context.read<FavoritesPageCubit>();
+    final bloc = BlocProvider.of<FavoritesPageCubit>(context);
 
     return BlocBuilder<FavoritesPageCubit, FavoritesPageState>(
       bloc: bloc,

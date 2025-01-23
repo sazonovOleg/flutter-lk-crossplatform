@@ -1,9 +1,30 @@
 import 'dart:async';
+import 'dart:isolate';
 
 import 'package:b2b_client_lk/src/features/catalog/data/catalog_repository.dart';
 
 import 'models/good_card_data_model/good_card_data_model.dart';
 import 'models/goods_model/goods_model.dart';
+
+void startIsolate() async {
+  print("Start calculation");
+  final receivePort = ReceivePort();
+  final isolate = await Isolate.spawn(count, receivePort.sendPort);
+  receivePort.listen((message) {
+    print(message);
+    receivePort.close();
+    isolate.kill();
+  });
+  print("Some work...");
+}
+
+void count(SendPort sendPort) {
+  var result = 0;
+  for (var i = 1; i <= 10000000000; i++) {
+    result = i;
+  }
+  sendPort.send(result);
+}
 
 class CatalogService {
   final CatalogRepository _catalogRepository;
@@ -12,6 +33,8 @@ class CatalogService {
 
   Future<List<GoodsListItem>> getGoodsList() async {
     final goods = await _catalogRepository.getGoodsList();
+
+    startIsolate();
 
     return goods;
   }

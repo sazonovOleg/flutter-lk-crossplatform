@@ -24,7 +24,7 @@ class _State extends State<CartPage> {
 
   @override
   Widget build(BuildContext context) {
-    final bloc = context.read<CartPageCubit>();
+    final bloc = BlocProvider.of<CartPageCubit>(context);
 
     return BlocBuilder<CartPageCubit, CartPageState>(
       bloc: bloc,

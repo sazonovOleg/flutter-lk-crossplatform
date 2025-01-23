@@ -52,20 +52,18 @@ class Providers extends StatelessWidget {
         RepositoryProvider<HiveStorage>(
           create: (context) => HiveStorage(),
         ),
-        RepositoryProvider<UserDataStorage>(
-          create: (context) => UserDataStorage(
-            context.read<HiveStorage>(),
-            context.read<SharedPref>(),
-          ),
-        ),
         RepositoryProvider<ApiClient>(
-          create: (context) => ApiClient(
-            context.read<UserDataStorage>(),
-          ),
+          create: (context) => ApiClient(),
         ),
         RepositoryProvider<UserDataApi>(
           create: (context) => UserDataApi(
             context.read<ApiClient>().dio,
+          ),
+        ),
+        RepositoryProvider<UserDataStorage>(
+          create: (context) => UserDataStorage(
+            context.read<HiveStorage>(),
+            context.read<SharedPref>(),
           ),
         ),
         RepositoryProvider<UserDataRepository>(

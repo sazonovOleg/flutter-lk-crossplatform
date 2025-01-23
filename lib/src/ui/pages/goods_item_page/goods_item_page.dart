@@ -26,7 +26,7 @@ class _State extends State<GoodsItemPage> {
 
   @override
   Widget build(BuildContext context) {
-    final bloc = context.read<GoodsItemPageCubit>();
+    final bloc = BlocProvider.of<GoodsItemPageCubit>(context);
 
     return BlocBuilder<GoodsItemPageCubit, GoodsItemPageState>(
       bloc: bloc,
