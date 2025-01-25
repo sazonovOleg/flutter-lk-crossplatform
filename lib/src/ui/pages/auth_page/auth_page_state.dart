@@ -5,6 +5,8 @@ class AuthPageState {
   final bool isLogin;
   final bool isPass;
   final bool isShowPass;
+  final bool isRegistration;
+  final String registrationMessage;
   AuthModel? authModel = AuthModel.empty();
 
   AuthPageState({
@@ -12,6 +14,8 @@ class AuthPageState {
     this.isLogin = false,
     this.isPass = false,
     this.isShowPass = true,
+    this.isRegistration = false,
+    this.registrationMessage = '',
     this.authModel,
   });
 }

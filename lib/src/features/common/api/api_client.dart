@@ -6,16 +6,15 @@ import 'on_request_interceptor.dart';
 class ApiClient {
   final Dio dio = Dio();
 
-  ///Start host with adb reverse tcp:3020 tcp:3020
   static const String _api = 'http://localhost:3020/';
 
   ApiClient() {
     dio.options.baseUrl = _api;
     //dio.options.headers['Content-Type'] = 'application/json';
 
-    dio.interceptors.add(OnError());
-    dio.interceptors.add(
+    dio.interceptors.addAll([
+      OnError(),
       OnRequest(),
-    );
+    ]);
   }
 }

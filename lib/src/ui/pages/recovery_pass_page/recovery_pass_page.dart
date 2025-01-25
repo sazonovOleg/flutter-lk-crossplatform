@@ -103,7 +103,7 @@ class _RecoveryPass extends StatelessWidget {
           )
         else
           const Opacity(
-            opacity: 0.7,
+            opacity: 0.3,
             child: _Btn(
               onPressed: null,
               btnText: 'Восстановить пароль',

@@ -29,6 +29,30 @@ class AuthApi {
     }
   }
 
+  Future<Response?> registration(String name, String password) async {
+    try {
+      final res = await _dio.post(
+        'api/auth/registration',
+        data: {
+          'name': name,
+          'password': password,
+        },
+      );
+
+      return res;
+    } on DioException catch (e, s) {
+      print('DioException error ===== ${e.error}');
+      print('DioException stackTrace ===== ${s}');
+      print('DioException data ===== ${e.response?.data}');
+
+      return e.response;
+    } on Exception catch (e) {
+      print('Error ===== ${e}');
+
+      return null;
+    }
+  }
+
   Future<bool> recoveryPass(String email) async {
     ///TODO waiting for implementation on the backend
     // final response = await _dio.get('user_groups/param? $email');

@@ -15,8 +15,10 @@ class AuthService {
   );
 
   final _authState = BehaviorSubject<bool>.seeded(false);
+  final _registrationState = BehaviorSubject<String>.seeded('');
 
   Stream<bool> get authState => _authState.stream;
+  Stream<String> get registrationState => _registrationState.stream;
 
   Future<void> logoOut() async {
     await _authRepository.clear();
@@ -25,11 +27,18 @@ class AuthService {
     _authState.value = false;
   }
 
-  Future<AuthModel> signInWithEmailAndPassword(
+  Future<AuthModel> signIn(
     String name,
     String password,
   ) async {
     return await authOnBackend(name, password);
+  }
+
+  Future<AuthModel> registration(
+    String name,
+    String password,
+  ) async {
+    return await registrationOnBackend(name, password);
   }
 
   Future<AuthModel> authOnBackend(String name, String password) async {
@@ -38,6 +47,18 @@ class AuthService {
     if (authModel.statusCode == 200) {
       await _userDataService.setLoggedIn(true);
       _authState.value = true;
+
+      return authModel;
+    } else {
+      return authModel;
+    }
+  }
+
+  Future<AuthModel> registrationOnBackend(String name, String password) async {
+    final authModel = await _authRepository.registration(name, password);
+
+    if (authModel.statusCode == 200) {
+      _registrationState.value = 'Регистрация успешно завершена.';
 
       return authModel;
     } else {

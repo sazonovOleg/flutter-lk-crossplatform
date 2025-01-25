@@ -6,7 +6,6 @@ import 'package:b2b_client_lk/src/ui/pages/recovery_pass_page/recovery_pass_rout
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-
 import 'auth_page_state.dart';
 
 class AuthPageCubit extends Cubit<AuthPageState> with ErrorHandler {
@@ -19,11 +18,25 @@ class AuthPageCubit extends Cubit<AuthPageState> with ErrorHandler {
   TextEditingController loginController = TextEditingController();
   TextEditingController passController = TextEditingController();
 
+  late StreamSubscription? _streamSubscription;
+
+  Future<void> init() async {
+    _streamSubscription = _authService.registrationState.listen((value) {
+      if (value.isNotEmpty) {
+        emit(AuthPageState(
+          authModel: state.authModel,
+          isLoading: state.isLoading,
+          registrationMessage: value,
+        ));
+      }
+    });
+  }
+
   Future<void> goToRecoveryPassPage(BuildContext context) async {
     await context.pushNamed(RecoveryPassRoute.pageName);
   }
 
-  bool isShowLoginBtn() {
+  bool isShowBtn() {
     final isLogin = loginController.text.length >= 3;
     final isPass = passController.value.text.length >= 3;
 
@@ -34,11 +47,10 @@ class AuthPageCubit extends Cubit<AuthPageState> with ErrorHandler {
     final email = loginController.text;
     final password = passController.text;
 
-    if (isShowLoginBtn()) {
+    if (isShowBtn()) {
       emit(AuthPageState(isLoading: true));
       try {
-
-        final authModel = await _authService.signInWithEmailAndPassword(
+        final authModel = await _authService.signIn(
           email,
           password,
         );
@@ -47,6 +59,38 @@ class AuthPageCubit extends Cubit<AuthPageState> with ErrorHandler {
           authModel: authModel,
           isLoading: false,
         ));
+      } on Exception catch (e) {
+        handleError(
+          e,
+        );
+        emit(AuthPageState(isLoading: false));
+      }
+    }
+  }
+
+  Future<void> registration() async {
+    final email = loginController.text;
+    final password = passController.text;
+
+    if (isShowBtn()) {
+      emit(AuthPageState(isLoading: true));
+      try {
+        final authModel = await _authService.registration(
+          email,
+          password,
+        );
+
+        if (state.registrationMessage.isNotEmpty) {
+          Future.delayed(Duration(seconds: 2)).then(
+            (value) => {
+              emit(AuthPageState(
+                authModel: authModel,
+                isLoading: false,
+                registrationMessage: '',
+              )),
+            },
+          );
+        }
       } on Exception catch (e) {
         handleError(
           e,
@@ -80,5 +124,21 @@ class AuthPageCubit extends Cubit<AuthPageState> with ErrorHandler {
         isPass: isPass,
       ),
     );
+  }
+
+  void setRegistrationView(bool value) {
+    loginController.clear();
+    passController.clear();
+    emit(
+      AuthPageState(
+        isRegistration: value,
+      ),
+    );
+  }
+
+  @override
+  Future<void> close() {
+    _streamSubscription?.cancel();
+    return super.close();
   }
 }

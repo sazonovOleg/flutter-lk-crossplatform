@@ -25,7 +25,22 @@ class AuthRepository {
         message: res.data['message'] ?? '',
       );
     } else {
-      print('ERROR ------- Repository data error. Status code ===== ${res?.statusCode}');
+      print('ERROR -- Repository data error. Status code === ${res?.statusCode}');
+
+      return AuthModel.empty();
+    }
+  }
+
+  Future<AuthModel> registration(String name, String password) async {
+    final res = await _authApi.registration(name, password);
+
+    if (res != null) {
+      return AuthModel(
+        statusCode: res.statusCode ?? 0,
+        message: res.data['message'] ?? '',
+      );
+    } else {
+      print('ERROR -- Repository data error. Status code === ${res?.statusCode}');
 
       return AuthModel.empty();
     }

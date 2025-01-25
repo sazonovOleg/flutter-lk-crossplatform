@@ -204,7 +204,7 @@ class _UpdateProfileBtn extends StatelessWidget {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
 
-    return Container(
+    return Padding(
       padding: EdgeInsets.only(top: height / 3.5),
       child: Column(
         children: [
