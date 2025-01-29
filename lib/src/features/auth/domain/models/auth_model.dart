@@ -3,16 +3,17 @@ class AuthModel {
     required this.statusCode,
     required this.message,
     this.token,
+    this.newPass,
   });
 
   int statusCode;
   String message;
   String? token;
-  bool? isLogin;
+  String? newPass;
 
   AuthModel.empty()
       : statusCode = 0,
         token = '',
-        isLogin = false,
-        message = 'Ошибка сервера';
+        newPass = '',
+        message = '';
 }

@@ -4,17 +4,11 @@ import 'package:b2b_client_lk/src/features/user_data/data/user_data_storage.dart
 import 'auth_api.dart';
 
 class AuthRepository {
-  final UserDataStorage _userDataStorage;
   final AuthApi _authApi;
 
-  AuthRepository(
+  const AuthRepository(
     this._authApi,
-    this._userDataStorage,
   );
-
-  Future<void> clear() async {
-    await _userDataStorage.clear();
-  }
 
   Future<AuthModel> login(String name, String password) async {
     final res = await _authApi.login(name, password);
@@ -46,29 +40,26 @@ class AuthRepository {
     }
   }
 
-  Future<void> savePassword(String password) async {
-    _userDataStorage.saveUserPassword(password);
-  }
+  Future<AuthModel> recoveryPass(String name) async {
+    final res = await _authApi.recoveryPass(name);
 
-  Future<String?> getPassword() async {
-    return _userDataStorage.getUserPassword();
-  }
+    if (res != null) {
+      if (res.statusCode == 200) {
+        return AuthModel(
+          statusCode: res.statusCode ?? 0,
+          message: res.data['message'] ?? '',
+          newPass: res.data['password'],
+        );
+      } else {
+        return AuthModel(
+          statusCode: res.statusCode ?? 0,
+          message: res.data['message'] ?? '',
+        );
+      }
+    } else {
+      print('ERROR -- Repository data error. Status code === ${res?.statusCode}');
 
-  Future<bool> recoveryPass(String email) async {
-    final isRecovery = await _authApi.recoveryPass(email);
-
-    return isRecovery;
-  }
-
-  Future<bool> checkRecoveryCode(String code) async {
-    final isChecked = await _authApi.checkRecoveryCode(code);
-
-    return isChecked;
-  }
-
-  Future<bool> setNewPass(String newPass) async {
-    final isChecked = await _authApi.setNewPass(newPass);
-
-    return isChecked;
+      return AuthModel.empty();
+    }
   }
 }

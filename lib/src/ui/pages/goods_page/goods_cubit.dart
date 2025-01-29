@@ -1,4 +1,6 @@
 import 'package:b2b_client_lk/src/features/catalog/domain/catalog_service.dart';
+import 'package:b2b_client_lk/src/features/chat/domain/chat_service.dart';
+import 'package:b2b_client_lk/src/ui/pages/chat/chat_route.dart';
 import 'package:b2b_client_lk/src/ui/pages/goods_item_page/goods_item_route.dart';
 import 'package:b2b_client_lk/src/ui/pages/main_page/main_page_route.dart';
 import 'package:b2b_client_lk/src/ui/pages/profile_page/profile_page_route.dart';
@@ -10,13 +12,14 @@ import 'goods_state.dart';
 
 class GoodsPageCubit extends Cubit<GoodsPageState> {
   final CatalogService _catalogService;
+  final ChatService _chatService;
 
   GoodsPageCubit(
     this._catalogService,
+    this._chatService,
   ) : super(GoodsPageState());
 
-  Future<void> init(
-  ) async {
+  Future<void> init() async {
     await initGoodsList();
   }
 
@@ -55,5 +58,9 @@ class GoodsPageCubit extends Cubit<GoodsPageState> {
     emit(GoodsPageState(isLoading: true));
 
     await initGoodsList();
+  }
+
+  Future<void> goToChatPage(BuildContext context) async {
+    await context.pushNamed(ChatPageRoute.pageName);
   }
 }

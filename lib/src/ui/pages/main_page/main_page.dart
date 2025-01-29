@@ -1,5 +1,6 @@
 import 'package:b2b_client_lk/src/features/auth/domain/auth_service.dart';
 import 'package:b2b_client_lk/src/features/catalog/domain/catalog_service.dart';
+import 'package:b2b_client_lk/src/features/chat/domain/chat_service.dart';
 import 'package:b2b_client_lk/src/ui/components/loading_page.dart';
 import 'package:b2b_client_lk/src/ui/pages/auth_page/auth_page.dart';
 import 'package:b2b_client_lk/src/ui/pages/auth_page/auth_page_cubit.dart';
@@ -33,7 +34,7 @@ class _State extends State<MainPage> {
 
     return BlocBuilder<MainPageCubit, MainPageState>(
       bloc: bloc,
-      builder: (context, state) => state.isLoading
+      builder: (context, state) => state.isLoading && !state.isLoggedIn
           ? const LoadingPage()
           : !state.isLoggedIn
               ? _AuthPage()
@@ -60,6 +61,7 @@ class _GoodsPage extends StatelessWidget {
     return BlocProvider(
       create: (context) => GoodsPageCubit(
         context.read<CatalogService>(),
+        context.read<ChatService>(),
       ),
       child: const GoodsPage(),
     );

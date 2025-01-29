@@ -1,7 +1,7 @@
-# b2b_client_lk 
+# Example flutter lk project
 
-## Example flutter project with cubit/mvvm + hive
+### Clean architecture + hive + bloc/cubit + mvvm
 
-### Чистая архитектура + hive + bloc/cubit + mvvm.
-
-###### Start host with adb reverse tcp:3020 tcp:3020
+###### Start host with ---- adb reverse tcp:3020 tcp:3020
+###### Start websocket with ---- adb reverse tcp:3030 tcp:3030
+###### Build json or hive ---- flutter pub run build_runner build --delete-conflicting-outputs

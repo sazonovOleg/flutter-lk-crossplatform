@@ -1,27 +1,13 @@
+import 'package:b2b_client_lk/src/features/auth/domain/models/auth_model.dart';
+
 class RecoveryPassState {
-  final int count;
   final bool isLoading;
   final bool isShowEmailBtn;
-  final bool isRecovery;
-  final bool isChecked;
-  final bool isNewPassword;
-  final bool enabledVerifyBtn;
-  final bool enabledConfirmPassBtn;
-  final bool isShowNewPass;
-  final bool isShowConfirmPass;
-  final String userEmail;
+  AuthModel? authModel = AuthModel.empty();
 
-  const RecoveryPassState({
-    this.count = 0,
+  RecoveryPassState({
     this.isLoading = false,
     this.isShowEmailBtn = false,
-    this.isRecovery = false,
-    this.isChecked = false,
-    this.isNewPassword = false,
-    this.enabledVerifyBtn = false,
-    this.enabledConfirmPassBtn = false,
-    this.isShowNewPass = true,
-    this.isShowConfirmPass = true,
-    this.userEmail = '',
+    this.authModel,
   });
 }

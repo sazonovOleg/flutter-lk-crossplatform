@@ -15,6 +15,7 @@ class RecoveryPassPage extends StatefulWidget {
 class _WidgetState extends State<RecoveryPassPage> {
   @override
   void initState() {
+    context.read<RecoveryPassCubit>().init();
     super.initState();
   }
 
@@ -32,28 +33,17 @@ class _WidgetState extends State<RecoveryPassPage> {
         margin: EdgeInsets.only(top: height / 5),
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: BlocBuilder<RecoveryPassCubit, RecoveryPassState>(
-          bloc: bloc,
-          builder: (context, state) {
-            if (state.isRecovery) {
-              return _RecoveryCode(
+            bloc: bloc,
+            builder: (context, state) {
+              if (state.authModel!.newPass!.isNotEmpty) {
+                return Text('Ваш новый пароль : state.authModel!.newPass!');
+              }
+
+              return _RecoveryPass(
                 bloc: bloc,
                 state: state,
               );
-            }
-
-            if (state.isNewPassword) {
-              return _SyncPass(
-                state: state,
-                bloc: bloc,
-              );
-            }
-
-            return _RecoveryPass(
-              bloc: bloc,
-              state: state,
-            );
-          },
-        ),
+            }),
       ),
     );
   }
@@ -93,7 +83,8 @@ class _RecoveryPass extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        _Email(
+        _Login(
+          state: state,
           bloc: bloc,
         ),
         if (state.isShowEmailBtn)
@@ -114,10 +105,12 @@ class _RecoveryPass extends StatelessWidget {
   }
 }
 
-class _Email extends StatelessWidget {
+class _Login extends StatelessWidget {
+  final RecoveryPassState state;
   final RecoveryPassCubit bloc;
 
-  const _Email({
+  const _Login({
+    required this.state,
     required this.bloc,
   });
 
@@ -143,8 +136,8 @@ class _Email extends StatelessWidget {
             borderRadius: BorderRadius.circular(8),
           ),
           child: TextField(
-            controller: bloc.emailController,
-            onChanged: bloc.validateEmail,
+            controller: bloc.loginController,
+            onChanged: bloc.validateLogin,
             decoration: const InputDecoration(
               prefixIcon: Icon(
                 Icons.account_circle,
@@ -160,206 +153,7 @@ class _Email extends StatelessWidget {
             ),
           ),
         ),
-      ],
-    );
-  }
-}
-
-class _RecoveryCode extends StatelessWidget {
-  final RecoveryPassCubit bloc;
-  final RecoveryPassState state;
-
-  const _RecoveryCode({
-    required this.bloc,
-    required this.state,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        _RecoveryCodeTextField(
-          bloc: bloc,
-          state: state,
-        ),
-        if (state.enabledVerifyBtn)
-          _Btn(
-            onPressed: bloc.checkRecoveryCode,
-            btnText: 'Продолжить',
-          )
-        else
-          const Opacity(
-            opacity: 0.7,
-            child: _Btn(
-              onPressed: null,
-              btnText: 'Продолжить',
-            ),
-          ),
-      ],
-    );
-  }
-}
-
-class _RecoveryCodeTextField extends StatelessWidget {
-  final RecoveryPassCubit bloc;
-  final RecoveryPassState state;
-
-  const _RecoveryCodeTextField({
-    required this.bloc,
-    required this.state,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(bottom: 10),
-          child: Text(
-            textAlign: TextAlign.center,
-            'Ваш код 123456',
-          ),
-        ),
-        Container(
-          margin: const EdgeInsets.only(bottom: 20),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.2),
-                spreadRadius: 4,
-                blurRadius: 10,
-                offset: const Offset(3, 4),
-              ),
-            ],
-            border: Border.all(
-              color: Theme.of(context).colorScheme.primaryContainer,
-            ),
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: TextField(
-            controller: bloc.recoveryCodeController,
-            onChanged: bloc.validateCode,
-            decoration: const InputDecoration(
-              contentPadding: EdgeInsets.only(
-                top: 5,
-                left: 10,
-              ),
-              hintText: 'Введите проверочный код',
-              isDense: false,
-              border: InputBorder.none,
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class _SyncPass extends StatelessWidget {
-  final RecoveryPassCubit bloc;
-  final RecoveryPassState state;
-
-  const _SyncPass({
-    required this.state,
-    required this.bloc,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          margin: const EdgeInsets.only(
-            bottom: 10,
-          ),
-          decoration: BoxDecoration(
-            border: Border.all(
-              color: Theme.of(context).colorScheme.primaryContainer,
-            ),
-            color: Colors.white,
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.2),
-                spreadRadius: 4,
-                blurRadius: 10,
-                offset: const Offset(3, 4),
-              ),
-            ],
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: TextField(
-            controller: bloc.enteredPassController,
-            obscureText: state.isShowNewPass,
-            decoration: InputDecoration(
-              suffixIcon: InkWell(
-                onTap: bloc.showNewPassword,
-                child: const Icon(
-                  Icons.remove_red_eye_sharp,
-                  size: 20,
-                ),
-              ),
-              contentPadding: const EdgeInsets.only(
-                top: 13,
-                left: 10,
-              ),
-              hintText: 'Введите пароль',
-              isDense: false,
-              border: InputBorder.none,
-            ),
-          ),
-        ),
-        Container(
-          decoration: BoxDecoration(
-            border: Border.all(
-              color: Theme.of(context).colorScheme.primaryContainer,
-            ),
-            color: Colors.white,
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.2),
-                spreadRadius: 4,
-                blurRadius: 10,
-                offset: const Offset(3, 4),
-              ),
-            ],
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: TextField(
-            controller: bloc.confirmPassController,
-            obscureText: state.isShowConfirmPass,
-            onChanged: bloc.validatePass,
-            decoration: InputDecoration(
-              suffixIcon: InkWell(
-                onTap: bloc.showConfirmPass,
-                child: const Icon(
-                  Icons.remove_red_eye_sharp,
-                  size: 20,
-                ),
-              ),
-              contentPadding: const EdgeInsets.only(
-                top: 13,
-                left: 10,
-              ),
-              hintText: 'Повторите пароль',
-              isDense: false,
-              border: InputBorder.none,
-            ),
-          ),
-        ),
-        if (state.enabledConfirmPassBtn)
-          _Btn(
-            onPressed: () => bloc.setNewPass(context),
-            btnText: 'Продолжить',
-          )
-        else
-          const Opacity(
-            opacity: 0.7,
-            child: _Btn(
-              onPressed: null,
-              btnText: 'Продолжить',
-            ),
-          ),
+        if (state.authModel!.message.isNotEmpty) Text(state.authModel!.message),
       ],
     );
   }

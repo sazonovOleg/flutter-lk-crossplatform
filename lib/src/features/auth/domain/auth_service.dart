@@ -18,10 +18,10 @@ class AuthService {
   final _registrationState = BehaviorSubject<String>.seeded('');
 
   Stream<bool> get authState => _authState.stream;
+
   Stream<String> get registrationState => _registrationState.stream;
 
   Future<void> logoOut() async {
-    await _authRepository.clear();
     await _userDataService.setLoggedIn(false);
 
     _authState.value = false;
@@ -70,16 +70,10 @@ class AuthService {
     return _userDataService.isLoggedIn();
   }
 
-  Future<bool> recoveryPass(String email) async {
-    return _authRepository.recoveryPass(email);
-  }
+  Future<AuthModel> recoveryPass(String name) async {
+    final authModel = await _authRepository.recoveryPass(name);
 
-  Future<bool> checkRecoveryCode(String email) async {
-    return _authRepository.checkRecoveryCode(email);
-  }
-
-  Future<bool> setNewPass(String newPass) async {
-    return _authRepository.setNewPass(newPass);
+    return authModel;
   }
 
   void dispose() {

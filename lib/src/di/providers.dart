@@ -4,6 +4,9 @@ import 'package:b2b_client_lk/src/features/auth/domain/auth_service.dart';
 import 'package:b2b_client_lk/src/features/catalog/data/catalog_api.dart';
 import 'package:b2b_client_lk/src/features/catalog/data/catalog_repository.dart';
 import 'package:b2b_client_lk/src/features/catalog/domain/catalog_service.dart';
+import 'package:b2b_client_lk/src/features/chat/data/chat_api.dart';
+import 'package:b2b_client_lk/src/features/chat/data/chat_repo.dart';
+import 'package:b2b_client_lk/src/features/chat/domain/chat_service.dart';
 import 'package:b2b_client_lk/src/features/common/api/api_client.dart';
 import 'package:b2b_client_lk/src/features/common/hive_storage/hive_storage.dart';
 import 'package:b2b_client_lk/src/features/common/shared_pref/shared_pref.dart';
@@ -22,6 +25,7 @@ import 'package:b2b_client_lk/src/features/user_data/domain/user_data_service.da
 import 'package:b2b_client_lk/src/ui/common/theme/theme.dart';
 import 'package:b2b_client_lk/src/ui/pages/auth_page/auth_page_cubit.dart';
 import 'package:b2b_client_lk/src/ui/pages/cart/cart_page_cubit.dart';
+import 'package:b2b_client_lk/src/ui/pages/chat/chat_cubit.dart';
 import 'package:b2b_client_lk/src/ui/pages/favorites/favorites_page_cubit.dart';
 import 'package:b2b_client_lk/src/ui/pages/goods_item_page/goods_item_cubit.dart';
 import 'package:b2b_client_lk/src/ui/pages/goods_page/goods_cubit.dart';
@@ -85,7 +89,6 @@ class Providers extends StatelessWidget {
         RepositoryProvider<AuthRepository>(
           create: (context) => AuthRepository(
             context.read<AuthApi>(),
-            context.read<UserDataStorage>(),
           ),
         ),
         RepositoryProvider<AuthService>(
@@ -151,6 +154,19 @@ class Providers extends StatelessWidget {
             context.read<FavoritesRepository>(),
           ),
         ),
+        RepositoryProvider<ChatApi>(
+          create: (context) => ChatApi(),
+        ),
+        RepositoryProvider<ChatRepo>(
+          create: (context) => ChatRepo(
+            context.read<ChatApi>(),
+          ),
+        ),
+        RepositoryProvider<ChatService>(
+          create: (context) => ChatService(
+            context.read<ChatRepo>(),
+          ),
+        ),
       ],
       child: MultiBlocProvider(
         providers: [
@@ -179,6 +195,7 @@ class Providers extends StatelessWidget {
           BlocProvider<GoodsPageCubit>(
             create: (context) => GoodsPageCubit(
               context.read<CatalogService>(),
+              context.read<ChatService>(),
             ),
           ),
           BlocProvider<GoodsItemPageCubit>(
@@ -195,6 +212,11 @@ class Providers extends StatelessWidget {
           BlocProvider<FavoritesPageCubit>(
             create: (context) => FavoritesPageCubit(
               context.read<FavoritesService>(),
+            ),
+          ),
+          BlocProvider<ChatPageCubit>(
+            create: (context) => ChatPageCubit(
+              context.read<ChatService>(),
             ),
           ),
         ],

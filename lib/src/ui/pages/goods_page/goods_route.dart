@@ -1,4 +1,5 @@
 import 'package:b2b_client_lk/src/features/catalog/domain/catalog_service.dart';
+import 'package:b2b_client_lk/src/features/chat/domain/chat_service.dart';
 import 'package:b2b_client_lk/src/ui/pages/goods_page/goods_cubit.dart';
 import 'package:b2b_client_lk/src/ui/pages/goods_page/goods_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,6 +16,7 @@ class GoodsPageRoute extends GoRoute {
           builder: (context, state) => BlocProvider(
             create: (context) => GoodsPageCubit(
               context.read<CatalogService>(),
+              context.read<ChatService>(),
             ),
             child: GoodsPage(),
           ),

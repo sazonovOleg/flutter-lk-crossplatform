@@ -63,6 +63,16 @@ class _AppBar extends StatelessWidget implements PreferredSizeWidget {
       centerTitle: true,
       actions: [
         InkWell(
+          onTap: () => bloc.goToChatPage(context),
+          child: const Icon(
+            Icons.chat,
+            size: 25,
+          ),
+        ),
+        const SizedBox(
+          width: 10,
+        ),
+        InkWell(
           onTap: () => bloc.goToProfile(context),
           child: const Icon(
             Icons.account_circle,
